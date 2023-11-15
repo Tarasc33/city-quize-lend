@@ -104,7 +104,8 @@ console.log(regionData, 'regionData')
       try {
         get(child(tasksRef, `regions/${countryItemId}`)).then((snapshot) => {
           if (snapshot.exists()) {
-            setRegionData(snapshot.val())
+            const dataArray = Object.keys(snapshot.val() || {}).length > 0 ? Object.values(snapshot.val()) : []
+            setRegionData(dataArray)
           } else {
             console.log("No data available")
           }
