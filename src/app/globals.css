@@ -108,122 +108,122 @@ body.modal-open .main {
   }
 }
 
-.cloud {
-  max-width: 100%;
-  overflow: hidden;
-}
+/*.cloud {*/
+/*  max-width: 100%;*/
+/*  overflow: hidden;*/
+/*}*/
 
-ul.cloud {
-  list-style: none;
-  padding-left: 0;
-  line-height: 2.5rem;
-  width: 100%;
-  height: 100vh;
-}
+/*ul.cloud {*/
+/*  list-style: none;*/
+/*  padding-left: 0;*/
+/*  line-height: 2.5rem;*/
+/*  width: 100%;*/
+/*  height: 100vh;*/
+/*}*/
 
-ul.cloud li {
-  display: block;
-  font-size: 1.5rem;
-  padding: 0.125rem 0.25rem;
-  text-decoration: none;
-  position: relative;
-  font-weight: bold;
-  cursor: default;
-}
+/*ul.cloud li {*/
+/*  display: block;*/
+/*  font-size: 1.5rem;*/
+/*  padding: 0.125rem 0.25rem;*/
+/*  text-decoration: none;*/
+/*  position: relative;*/
+/*  font-weight: bold;*/
+/*  cursor: default;*/
+/*}*/
 
-.tagcloud .tagcloud--item span {
-  --size: attr(data-weight number, 2);
-  font-size: calc(var(--size) * 1rem);
-}
+/*.tagcloud .tagcloud--item span {*/
+/*  --size: attr(data-weight number, 2);*/
+/*  font-size: calc(var(--size) * 1rem);*/
+/*}*/
 
-.tagcloud .tagcloud--item span[data-weight="1"] {
-  --size: 1;
-}
+/*.tagcloud .tagcloud--item span[data-weight="1"] {*/
+/*  --size: 1;*/
+/*}*/
 
-.tagcloud .tagcloud--item span[data-weight="2"] {
-  --size: 2;
-}
+/*.tagcloud .tagcloud--item span[data-weight="2"] {*/
+/*  --size: 2;*/
+/*}*/
 
-.tagcloud .tagcloud--item span[data-weight="3"] {
-  --size: 3;
-}
+/*.tagcloud .tagcloud--item span[data-weight="3"] {*/
+/*  --size: 3;*/
+/*}*/
 
-.tagcloud .tagcloud--item span[data-weight="4"] {
-  --size: 4;
-}
+/*.tagcloud .tagcloud--item span[data-weight="4"] {*/
+/*  --size: 4;*/
+/*}*/
 
-.tagcloud .tagcloud--item span[data-weight="5"] {
-  --size: 5;
-}
+/*.tagcloud .tagcloud--item span[data-weight="5"] {*/
+/*  --size: 5;*/
+/*}*/
 
-.tagcloud .tagcloud--item span[data-weight="6"] {
-  --size: 6;
-}
+/*.tagcloud .tagcloud--item span[data-weight="6"] {*/
+/*  --size: 6;*/
+/*}*/
 
-.tagcloud .tagcloud--item span[data-weight="7"] {
-  --size: 7;
-}
+/*.tagcloud .tagcloud--item span[data-weight="7"] {*/
+/*  --size: 7;*/
+/*}*/
 
-.tagcloud .tagcloud--item span[data-weight="8"] {
-  --size: 8;
-}
+/*.tagcloud .tagcloud--item span[data-weight="8"] {*/
+/*  --size: 8;*/
+/*}*/
 
-.tagcloud .tagcloud--item span[data-weight="9"] {
-  --size: 9;
-}
+/*.tagcloud .tagcloud--item span[data-weight="9"] {*/
+/*  --size: 9;*/
+/*}*/
 
-.tagcloud .tagcloud--item span {
-  --size: 2;
-  font-size: calc(var(--size) * 0.15rem);
-}
+/*.tagcloud .tagcloud--item span {*/
+/*  --size: 2;*/
+/*  font-size: calc(var(--size) * 0.15rem);*/
+/*}*/
 
-@media screen and (min-width: 991px) {
-  .tagcloud .tagcloud--item span {
-    --size: 5;
-    font-size: calc(var(--size) * 0.25rem);
-  }
-}
+/*@media screen and (min-width: 991px) {*/
+/*  .tagcloud .tagcloud--item span {*/
+/*    --size: 5;*/
+/*    font-size: calc(var(--size) * 0.25rem);*/
+/*  }*/
+/*}*/
 
-ul.cloud[data-show-value] li::after {
-  content: " (" attr(data-weight) ")";
-  font-size: 1rem;
-}
+/*ul.cloud[data-show-value] li::after {*/
+/*  content: " (" attr(data-weight) ")";*/
+/*  font-size: 1rem;*/
+/*}*/
 
-.header, .footer {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 20px;
-  width: 100%;
-}
+/*.header, .footer {*/
+/*  position: absolute;*/
+/*  bottom: 0;*/
+/*  left: 0;*/
+/*  height: 20px;*/
+/*  width: 100%;*/
+/*}*/
 
-.header {
-  top: 0;
-  z-index: 100;
-}
+/*.header {*/
+/*  top: 0;*/
+/*  z-index: 100;*/
+/*}*/
 
-.add-btn {
-  top: 20px;
-  right: 30px !important;
-}
+/*.add-btn {*/
+/*  top: 20px;*/
+/*  right: 30px !important;*/
+/*}*/
 
-.tagcloud {
-  margin: auto;
-  height: 100vh!important;
-}
+/*.tagcloud {*/
+/*  margin: auto;*/
+/*  height: 100vh!important;*/
+/*}*/
 
-.tagcloud--item {
-  color: white;
-  cursor: pointer;
-}
+/*.tagcloud--item {*/
+/*  color: white;*/
+/*  cursor: pointer;*/
+/*}*/
 
-.tagcloud--item span {
-  display: block;
-}
+/*.tagcloud--item span {*/
+/*  display: block;*/
+/*}*/
 
-.info-modal {
-  z-index: 200;
-}
+/*.info-modal {*/
+/*  z-index: 200;*/
+/*}*/
 
 #Ukraine {
   height: 100vh;
