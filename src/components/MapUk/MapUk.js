@@ -1,6 +1,3 @@
-import {useState} from "react"
-import Modal from "@/components/Modal/Modal"
-import FormWish from "@/components/FormWish/FormWish"
 import { useRouter } from 'next/navigation'
 import Link from 'next/link';
 
@@ -9,18 +6,11 @@ const MapUk = () => {
   const router = useRouter()
 
   const goToDashboard = (e) => {
-    const queryValue = e.currentTarget.id
-    router.push({
-      pathname: '/dashboard',
-      query: { id: 'wefwef'},
-    })
-    // router.push(
-    //   {
-    //     pathname: 'dashboard',
-    //     query: {value : queryValue},
-    //   },
-    //   'dashboard', // "as" argument
-    // )
+    // const queryValue = e.currentTarget.id
+    // router.push({
+    //   pathname: '/dashboard',
+    //   query: { id: 'wefwef'},
+    // })
   }
 
   return (

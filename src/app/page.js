@@ -3,14 +3,11 @@ import {useEffect, useState, useRef} from 'react'
 import {v4 as uuid} from 'uuid'
 import {ref, set, get, onValue, child, update, serverTimestamp} from "firebase/database"
 import {db} from "@/components/db/firebase"
-import {getRandomColor, randomIntFromInterval, validation} from "@/helpers/functions"
 import {ToastContainer} from 'react-toastify'
 import {showNotification} from "@/helpers/showNotification"
 import VideoContainer from "@/components/VideoContainer/VideoContainer"
 import ImageContainerMobile from "@/components/ImageContainerMobile/ImageContainerMobile"
-import Header from "@/components/Header/Header"
 import MapUk from "@/components/MapUk/MapUk"
-import Modal from "@/components/Modal/Modal"
 
 const Home = () => {
 
@@ -121,7 +118,7 @@ const Home = () => {
     <>
       <VideoContainer/>
       <ImageContainerMobile/>
-      {/*<Header*/}
+      {/*<PrimaryHeader*/}
       {/*  setModal={setModal}*/}
       {/*  setIsOpen={setIsOpen}*/}
       {/*  setDisableReportBtn={setDisableReportBtn}*/}

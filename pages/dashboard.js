@@ -1,110 +1,62 @@
 import { useRouter } from 'next/router'
-import {v4 as uuid} from "uuid"
-import {ref, serverTimestamp, set} from "firebase/database"
+import '../src/app/globals.css'
+import Link from "next/link"
+import {useEffect, useState} from "react"
+import {child, get, ref} from "firebase/database"
 import {db} from "@/components/db/firebase"
-import {getRandomColor, randomIntFromInterval} from "@/helpers/functions"
-import {showNotification} from "@/helpers/showNotification"
-import FormWish from "@/components/FormWish/FormWish"
-import {useRef, useState} from "react"
-import {ToastContainer} from "react-toastify"
-
-
-const initialFormData = {
-  id: '',
-  title: '',
-  fontStyle: 'normal',
-  status: false,
-  sizeTitle: 1,
-  color: '#0a0a0a',
-  like: 0,
-  reports: 0,
-  titleQuestions: ''
-}
 
 const Dashboard = () => {
-  const router = useRouter()
-  const countryItemId = router.query.data
-  console.log(countryItemId)
-
-
-  const targetRef = useRef()
   const tasksRef = ref(db)
-  //const [dimensions, setDimensions] = useState({width: 0, height: 0})
+  const router = useRouter()
+  const [dataRegion, setDataRegion] = useState([])
+  const [loading, setLoadingDb] = useState(false)
+  console.log(dataRegion, 'dataRegion')
+  console.log(loading)
 
-  const [formData, setFormData] = useState(initialFormData)
-  const [loading, setLoading] = useState(false)
-  const [loadingDb, setLoadingDb] = useState(false)
-  const [dataCloud, setDataCloud] = useState([])
-  const [modal, setModal] = useState(false)
-  const [titleModal, setTitleModal] = useState(false)
-  const [itemData, setItemData] = useState(null)
-  const [isOpen, setIsOpen] = useState(false)
+  useEffect(() => {
+    const getFormApp = async (regionNameId) => {
+      setLoadingDb(true)
+      try {
+        get(child(tasksRef, `regions/${regionNameId}`)).then((snapshot) => {
+          if (snapshot.exists()) {
+            const dataArray = Object.keys(snapshot.val() || {}).length > 0 ? Object.values(snapshot.val()) : []
+            setDataRegion(dataArray)
+            setLoadingDb(false)
+          } else {
+            console.log("No data available")
+          }
+        }).catch((err) => {
+          console.error(err)
+        })
+      } catch (error) {
+        console.log(error)
+      }
+    }
 
-  const [disableReportBtn, setDisableReportBtn] = useState(false)
-
-  const [error, setError] = useState('')
-  const [submitting, setSubmitting] = useState(false)
-  const [reCaptcha, setRecaptcha] = useState(false)
-
-  const [arrayQuestions, setArrayQuestions] = useState([])
-
-  const submit = () => {
-    const regionId = uuid()
-
-    set(ref(db, 'regions/' + countryItemId + '/' + regionId), {
-      id: regionId,
-      regionName: countryItemId,
-      time: serverTimestamp(),
-      title: formData.title,
-      status: false,
-      sizeTitle: randomIntFromInterval(1, 7),
-      color: getRandomColor(),
-      like: initialFormData.like,
-      reports: initialFormData.reports,
-      questions: arrayQuestions,
-      titleQuestions: formData.titleQuestions
-    }).then(() => {
-      setLoading(false)
-      setFormData({
-        id: '',
-        title: '',
-        status: false,
-        sizeTitle: 1,
-        color: '#0a0a0a',
-        reports: 0,
+    if (router.isReady) {
+      getFormApp(router.query.data).catch((error) => {
+        console.log(error)
       })
-      //fetchAllCloudData()
-      showNotification("Вашe бажання зараз розглядається нашою командою. Після схвалення воно буде опубліковане і доступне на карті.", 'success')
-      setModal(false)
-      setIsOpen(false)
-      setError('')
-      setSubmitting(false)
-    })
-  }
+    }
+  }, [router.isReady, router.query.form])
 
   return (
     <>
-    <h1>dashboard</h1>
-    <FormWish
-      submit={submit}
-      setModal={setModal}
-      setIsOpen={setIsOpen}
-      setLoading={setLoading}
-      setSubmitting={setSubmitting}
-      setFormData={setFormData}
-      formData={formData}
-      error={error}
-      loading={loading}
-      setError={setError}
-      reCaptcha={reCaptcha}
-      setRecaptcha={setRecaptcha}
-      setArrayQuestions={setArrayQuestions}
-      arrayQuestions={arrayQuestions}
-      countryItemId={countryItemId}
-    />
-      <ToastContainer/>
+      <Link href={`/builder?data=${encodeURIComponent(router.query.data)}`}>+ Створити свій квест</Link>
+      <h2>
+        list quests {router.query.data}
+      </h2>
       <div>
-
+        {dataRegion.map((item, index) => {
+          return (
+            <Link key={index} href={`/quest/${item.id}?data=${router.query.data}`}>
+              <h2>
+                {item.titleQuestions}
+                {item.id}
+              </h2>
+            </Link>
+          )
+        })}
       </div>
     </>
   )
