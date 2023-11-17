@@ -3,7 +3,9 @@ import '../src/app/globals.css'
 import Link from "next/link"
 import {useEffect, useState} from "react"
 import {child, get, ref} from "firebase/database"
-import {db} from "@/components/db/firebase"
+import {db} from "../src/components/db/firebase"
+import {useContext} from "react"
+import {RegionContext} from "./_app"
 
 const Dashboard = () => {
   const tasksRef = ref(db)
@@ -12,6 +14,9 @@ const Dashboard = () => {
   const [loading, setLoadingDb] = useState(false)
   console.log(dataRegion, 'dataRegion')
   console.log(loading)
+
+  const contextRegion = useContext(RegionContext)
+  console.log(contextRegion, 'regionValue regionValueregionValueregionValueregionValueregionValue')
 
   useEffect(() => {
     const getFormApp = async (regionNameId) => {
@@ -34,6 +39,7 @@ const Dashboard = () => {
     }
 
     if (router.isReady) {
+      contextRegion.setRegion(router.query.data)
       getFormApp(router.query.data).catch((error) => {
         console.log(error)
       })
@@ -42,7 +48,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <Link href={`/builder?data=${encodeURIComponent(router.query.data)}`}>+ Створити свій квест</Link>
+      <Link href={`/auth/login?data=${encodeURIComponent(router.query.data)}`}>+ Створити свій квест</Link>
       <h2>
         list quests {router.query.data}
       </h2>

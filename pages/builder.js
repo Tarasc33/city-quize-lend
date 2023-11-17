@@ -1,13 +1,13 @@
-import { useRouter } from 'next/router'
+import { useRouter,  } from 'next/router'
 import {v4 as uuid} from "uuid"
 import {ref, serverTimestamp, set} from "firebase/database"
-import {db} from "@/components/db/firebase"
-import {getRandomColor, randomIntFromInterval} from "@/helpers/functions"
-import {showNotification} from "@/helpers/showNotification"
-import {useRef, useState} from "react"
+import {db} from "../src/components/db/firebase"
+import {showNotification} from "../src/helpers/showNotification"
+import {useRef, useState, useContext, useEffect} from "react"
 import {ToastContainer} from "react-toastify"
-import Builder from "@/components/Builder"
+import Builder from "../src/components/Builder"
 import '../src/app/globals.css'
+import {RegionContext, ThemeContext} from "./_app"
 
 const initialFormData = {
   id: '',
@@ -23,9 +23,12 @@ const initialFormData = {
 
 const BuilderPage = () => {
   const router = useRouter()
-  const countryItemId = router.query.data
-  console.log(countryItemId)
+  const regionItemId = router.query.data
 
+  const contextValue = useContext(ThemeContext)
+  const contextRegion = useContext(RegionContext)
+  console.log(contextValue, 'contextValue builder')
+  console.log(regionItemId, contextValue, contextRegion)
 
   const targetRef = useRef()
   const tasksRef = ref(db)
@@ -45,18 +48,18 @@ const BuilderPage = () => {
   const submit = () => {
     const regionId = uuid()
 
-    set(ref(db, 'regions/' + countryItemId + '/' + regionId), {
+    set(ref(db, 'regions/' + regionItemId + '/' + regionId), {
       id: regionId,
-      regionName: countryItemId,
+      regionName: contextRegion.region || regionItemId,
       time: serverTimestamp(),
       title: formData.title,
       status: false,
-      sizeTitle: randomIntFromInterval(1, 7),
-      color: getRandomColor(),
       like: initialFormData.like,
       reports: initialFormData.reports,
       questions: arrayQuestions,
-      titleQuestions: formData.titleQuestions
+      titleQuestions: formData.titleQuestions,
+      userId: contextValue.authObj.userId,
+      userName: contextValue.authObj.userName,
     }).then(() => {
       setLoading(false)
       setFormData({
@@ -67,14 +70,24 @@ const BuilderPage = () => {
         color: '#0a0a0a',
         reports: 0,
       })
-      //fetchAllCloudData()
-      showNotification("Вашe бажання зараз розглядається нашою командою. Після схвалення воно буде опубліковане і доступне на карті.", 'success')
+      showNotification("Ваш квест зараз розглядається нашою командою. Після схвалення воно буде опубліковане і доступне на карті.", 'success')
       setModal(false)
       setIsOpen(false)
       setError('')
       setSubmitting(false)
+    }).then(() => {
+      router.push('/')
     })
   }
+
+  useEffect(() => {
+    const { data } = router.query;
+
+    // Check if 'data' query parameter is 'undefined' or not present
+    if (data === 'undefined' || data === undefined) {
+      router.push('/'); // Redirect to your desired path
+    }
+  }, [router.query]);
 
   return (
     <>
@@ -93,7 +106,7 @@ const BuilderPage = () => {
         setRecaptcha={setRecaptcha}
         setArrayQuestions={setArrayQuestions}
         arrayQuestions={arrayQuestions}
-        countryItemId={countryItemId}
+        regionItemId={regionItemId}
       />
       <ToastContainer/>
     </>
