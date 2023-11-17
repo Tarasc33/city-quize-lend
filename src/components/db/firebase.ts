@@ -1,6 +1,10 @@
-import { initializeApp } from "firebase/app"
-import 'firebase/database'
+// import { initializeApp } from "firebase/app"
+// import 'firebase/database'
+// import firebase from 'firebase/app'
+import firebase from "firebase/compat/app"
+import 'firebase/compat/auth'
 import {getDatabase} from "firebase/database"
+// import "firebase/compat/auth"
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -13,5 +17,20 @@ const firebaseConfig = {
   NEXT_PUBLIC_MEASUREMENT_ID: process.env.NEXT_PUBLIC_MEASUREMENT_ID
 }
 
-initializeApp(firebaseConfig)
+//initializeApp(firebaseConfig)
+
+
+
+//export const firebaseAuth = firebase.auth()
+
+
+// export const GoogleProvider = new firebase.auth.GoogleAuthProvider()
+// GoogleProvider.setCustomParameters({ prompt: "select_account" })
+
+firebase.initializeApp(firebaseConfig)
+
+export const auth = firebase.auth()
 export const db = getDatabase()
+
+export const GoogleProvider = new firebase.auth.GoogleAuthProvider()
+GoogleProvider.setCustomParameters({ prompt: 'select_account' })

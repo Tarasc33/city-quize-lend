@@ -1,9 +1,8 @@
 import React, {useState, useRef, useEffect, Fragment} from 'react'
 import ReCAPTCHA from "react-google-recaptcha"
 import {child, get, ref} from "firebase/database"
-import {db} from "@/components/db/firebase"
+import {db} from "../../src/components/db/firebase"
 import {useRouter} from "next/router"
-
 
 const initialQuestion = {
   id: '',
@@ -200,7 +199,7 @@ let Stepper = ({isRightToLeftLanguage, isVertical, isInline, stepperContent, sub
 
 const Builder = ({
                    setLoading, submit, setSubmitting,
-                   setFormData, formData, error, reCaptcha, setRecaptcha, arrayQuestions, setArrayQuestions, countryItemId
+                   setFormData, formData, error, reCaptcha, setRecaptcha, arrayQuestions, setArrayQuestions, regionItemId
                  }) => {
 
   const [acceptFirstTerms, setAcceptFirstTerms] = useState({
@@ -216,7 +215,6 @@ const Builder = ({
       touched: false,
     }),
     [isSecondStepLoading, setIsSecondStepLoading] = useState(false)
-
 
 
   const targetRef = useRef()
@@ -298,9 +296,9 @@ const Builder = ({
   // }
 
   useEffect(() => {
-    const getFormApp = async (countryItemId) => {
+    const getFormApp = async (regionItemId) => {
       try {
-        get(child(tasksRef, `regions/${countryItemId}`)).then((snapshot) => {
+        get(child(tasksRef, `regions/${regionItemId}`)).then((snapshot) => {
           if (snapshot.exists()) {
             const dataArray = Object.keys(snapshot.val() || {}).length > 0 ? Object.values(snapshot.val()) : []
             setRegionData(dataArray)
@@ -316,7 +314,7 @@ const Builder = ({
     }
 
     if (router.isReady) {
-      getFormApp(countryItemId).catch((error) => {
+      getFormApp(regionItemId).catch((error) => {
         console.log(error)
       })
     }

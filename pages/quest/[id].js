@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import {ToastContainer} from "react-toastify"
 import {useEffect, useState} from "react"
 import {child, get, ref} from "firebase/database"
-import {db} from "@/components/db/firebase"
+import {db} from "../../src/components/db/firebase"
 import '../../src/app/globals.css'
 
 const Id = () => {

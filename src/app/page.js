@@ -1,5 +1,5 @@
 "use client"
-import MapUk from "@/components/MapUk/MapUk"
+import MapUk from "../components/MapUk/MapUk"
 
 const Home = () => {
   return <MapUk/>

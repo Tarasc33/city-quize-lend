@@ -1,14 +1,13 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+* {
+  box-sizing: border-box;
+}
 
 :root {
   --dark: #000;
 }
 
-
 body {
-  color: var(--dark)
+  color: var(--dark);
   /*background: linear-gradient(180deg, rgb(0, 91, 187) 40%, rgb(255, 213, 0) 41%);*/
 }
 
