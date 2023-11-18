@@ -38,7 +38,7 @@ const Login = () => {
                         return auth.currentUser.getIdToken()
                       }
                   }).then(() => {})
-                      router.push(`/builder?data=${encodeURIComponent(contextRegion.region)}`)
+                      router.push(`/builder?data=${contextRegion.region}`)
                   .catch(error => console.log(error))
               }
             }
