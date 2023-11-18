@@ -8,14 +8,6 @@ import {useEffect} from "react"
 const Login = () => {
   const contextValue = useContext(ThemeContext)
   const router = useRouter()
-  //const [url, setUrl] = useState('')
-  const contextRegion = useContext(RegionContext)
-
-  // useEffect(() => {
-  //   if (router.isReady) {
-  //     setUrl(router.query.data)
-  //   }
-  // }, [router.isReady])
 
   return (
     <div>
@@ -38,7 +30,7 @@ const Login = () => {
                         return auth.currentUser.getIdToken()
                       }
                   }).then(() => {})
-                      router.push(`/builder?data=${contextRegion.region}`)
+                      router.push(`/builder`)
                   .catch(error => console.log(error))
               }
             }
