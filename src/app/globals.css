@@ -275,8 +275,11 @@ body {
 
 /* Login */
 .button-login {
-  background-color: rgb(250, 195, 195)(0, 195, 255);
-  
+  background-color: rgb(255, 255, 255);
+  border-radius: 16px;
+  height: 55px;
+  width: 200px;
+  font-size: 15px;
 }
 
 
