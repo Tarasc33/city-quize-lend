@@ -14,7 +14,6 @@ const Dashboard = () => {
   const [loading, setLoadingDb] = useState(false)
 
   const contextRegion = useContext(RegionContext)
-  console.log(contextRegion.setRegion, 'dashboard')
   console.log(contextRegion.region, 'region')
 
   useEffect(() => {

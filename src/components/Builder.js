@@ -163,7 +163,7 @@ let StepperFooter = ({
   )
 }
 
-let Stepper = ({isRightToLeftLanguage, isVertical, isInline, stepperContent, submitStepper, reCaptcha, submit}) => {
+let Stepper = ({isRightToLeftLanguage, isVertical, isInline, stepperContent, submitStepper, reCaptcha, submit, submitQuizToUserData}) => {
   const [currentTabIndex, setCurrentTabIndex] = useState(0),
     isLastStep = currentTabIndex === stepperContent.length - 1,
     isPrevBtn = currentTabIndex !== 0;
@@ -189,6 +189,7 @@ let Stepper = ({isRightToLeftLanguage, isVertical, isInline, stepperContent, sub
   const submitHandler = () => {
     submitStepper()
     submit()
+    submitQuizToUserData()
   };
 
   return (
@@ -224,7 +225,7 @@ let Stepper = ({isRightToLeftLanguage, isVertical, isInline, stepperContent, sub
 
 const Builder = ({
                    setLoading, submit, setSubmitting,
-                   setFormData, formData, error, reCaptcha, setRecaptcha, arrayQuestions, setArrayQuestions, regionItemId
+                   setFormData, formData, error, reCaptcha, setRecaptcha, arrayQuestions, setArrayQuestions, regionItemId, submitQuizToUserData
                  }) => {
 
   const [acceptFirstTerms, setAcceptFirstTerms] = useState({
@@ -255,11 +256,6 @@ const Builder = ({
   const [variantsArray, setVariantsArray] = useState([])
 
   const [regionData, setRegionData] = useState([])
-
-  console.log(regionData, 'regionData')
-
-  const contextRegion = useContext(RegionContext)
-  console.log(contextRegion, 'builder')
 
   const [addrtype, setAddrtype] = useState(["single", "multiple"])
   //const Add = addrtype.map(Add => Add)
@@ -551,7 +547,7 @@ const Builder = ({
   return (
     <div className="container">
       <h2>Конструктор квесту</h2>
-      <Stepper stepperContent={stepperContent} submitStepper={submitStepper} submit={submit} reCaptcha={reCaptcha}/>
+      <Stepper stepperContent={stepperContent} submitStepper={submitStepper} submit={submit} reCaptcha={reCaptcha} submitQuizToUserData={submitQuizToUserData}/>
     </div>
   )
 }
