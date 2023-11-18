@@ -275,12 +275,26 @@ body {
 
 /* Login */
 .button-login {
-  background-color: rgb(255, 255, 255);
+  background-color:rgb(255, 195, 195);
   border-radius: 16px;
   height: 55px;
   width: 200px;
   font-size: 15px;
+  transition: all 0.5s ease;
 }
+.button-login:hover{
+  background: rgba(0,0,0,0);
+  cursor: pointer;
+}
+.auth-container{
+  margin: 0 auto;
+  max-width: 400px;
+  text-align: center;
+  padding: 20px;
+  background: aliceblue;
+  border-radius: 16px;
+}
+
 
 
 
