@@ -24,7 +24,7 @@ const Login = () => {
                         userName: response.user?.displayName,
                         userId: response.user?.uid,
                         email: response.user?.email,
-                        token: response.user?.idToken
+                        token: response.credential?.idToken
                       }))
                   }).then(() => {})
                       router.push(`/builder?data=${encodeURIComponent(router?.query?.data)}`)
