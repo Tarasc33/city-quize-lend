@@ -17,15 +17,17 @@ const Login = () => {
             onClick={ async () => {
                 await auth.signInWithPopup(GoogleProvider)
                   .then((response) => {
-                    console.log(response)
-                      contextValue.setAuthObject(prevState => ({
-                        ...prevState,
-                        isAuthenticated: true,
-                        userName: response.user?.displayName,
-                        userId: response.user?.uid,
-                        email: response.user?.email,
-                        token: response.credential?.idToken
-                      }))
+                    const { user, credential } = response
+                    contextValue.setAuthObject(prevState => ({
+                      ...prevState,
+                      isAuthenticated: true,
+                      userName: user!.displayName,
+                      userId: user!.uid,
+                      email: user!.email,
+                    }))
+                      if (auth.currentUser) {
+                        return auth.currentUser.getIdToken()
+                      }
                   }).then(() => {})
                       router.push(`/builder?data=${encodeURIComponent(router?.query?.data)}`)
                   .catch(error => console.log(error))
