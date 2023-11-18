@@ -1,5 +1,3 @@
-import Link from "next/link"
-
 import {auth, GoogleProvider} from "../../db/firebase"
 import {ThemeContext} from "../../../../pages/_app"
 
@@ -26,11 +24,11 @@ const Login = () => {
                         userName: response.user?.displayName,
                         userId: response.user?.uid,
                         email: response.user?.email,
-                        token: response.credential.idToken
+                        token: response.user?.idToken
                       }))
                   }).then(() => {})
-                      router.push(`/builder?data=${encodeURIComponent(router.query.data)}`)
-                  .catch(error => console.log('err'))
+                      router.push(`/builder?data=${encodeURIComponent(router?.query?.data)}`)
+                  .catch(error => console.log(error))
               }
             }
           >Log in with Google</button>
