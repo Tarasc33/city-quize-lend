@@ -12,11 +12,8 @@ const Dashboard = () => {
   const router = useRouter()
   const [dataRegion, setDataRegion] = useState([])
   const [loading, setLoadingDb] = useState(false)
-  console.log(dataRegion, 'dataRegion')
-  console.log(loading)
 
   const contextRegion = useContext(RegionContext)
-  console.log(contextRegion, 'regionValue regionValueregionValueregionValueregionValueregionValue')
 
   useEffect(() => {
     const getFormApp = async (regionNameId) => {
@@ -58,7 +55,6 @@ const Dashboard = () => {
             <Link key={index} href={`/quest/${item.id}?data=${router.query.data}`}>
               <h2>
                 {item.titleQuestions}
-                {item.id}
               </h2>
             </Link>
           )

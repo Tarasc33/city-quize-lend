@@ -1,6 +1,6 @@
 import {useContext} from "react"
 import {ThemeContext} from "../../../pages/_app"
-import {useRouter} from "next/router";
+import {useRouter} from "next/router"
 
 const BuilderLayout = ({ children }) => {
   const contextValue = useContext(ThemeContext)

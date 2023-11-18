@@ -27,11 +27,6 @@ const BuilderPage = () => {
 
   const contextValue = useContext(ThemeContext)
   const contextRegion = useContext(RegionContext)
-  console.log(contextValue, 'contextValue builder')
-  console.log(regionItemId, contextValue, contextRegion)
-
-  const targetRef = useRef()
-  const tasksRef = ref(db)
 
   const [formData, setFormData] = useState(initialFormData)
   const [loading, setLoading] = useState(false)
@@ -81,13 +76,11 @@ const BuilderPage = () => {
   }
 
   useEffect(() => {
-    const { data } = router.query;
-
-    // Check if 'data' query parameter is 'undefined' or not present
+    const { data } = router.query
     if (data === 'undefined' || data === undefined) {
-      router.push('/'); // Redirect to your desired path
+      router.push('/')
     }
-  }, [router.query]);
+  }, [router.query])
 
   return (
     <>
