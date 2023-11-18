@@ -6,12 +6,35 @@ import {useRouter} from "next/router"
 import {useContext} from "react"
 import {RegionContext} from "../../pages/_app"
 
+// {
+//   "question": "How can you access the state of a component from inside of a member function?",
+//   "questionType": "text",
+//   "questionPic": "https://dummyimage.com/600x400/000/fff&text=X", // if you need to display Picture in Question
+//   "answerSelectionType": "single",
+//   "answers": [
+//   "this.getState()",
+//   "this.prototype.stateValue",
+//   "this.state",
+//   "this.values"
+// ],
+//   "correctAnswer": "3",
+//   "messageForCorrectAnswer": "Correct answer. Good job.",
+//   "messageForIncorrectAnswer": "Incorrect answer. Please try again.",
+//   "explanation": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+//   "point": "20"
+// },
+
 const initialQuestion = {
-  id: '',
   question: '',
-  status: false,
-  trueAnswer: '',
-  variants: []
+  questionType: 'text',
+  questionPic: '',
+  answerSelectionType: 'single',
+  answers: [],
+  correctAnswer: '',
+  messageForCorrectAnswer: 'Відповідь правильна!. Хороша робота.',
+  messageForIncorrectAnswer: 'Відповідь не правильна',
+  explanation: '',
+  point: '1'
 }
 
 let Step = ({
@@ -140,7 +163,7 @@ let StepperFooter = ({
   )
 }
 
-let Stepper = ({isRightToLeftLanguage, isVertical, isInline, stepperContent, submitStepper, reCaptcha, submit}) => {
+let Stepper = ({isRightToLeftLanguage, isVertical, isInline, stepperContent, submitStepper, reCaptcha, submit, submitQuizToUserData}) => {
   const [currentTabIndex, setCurrentTabIndex] = useState(0),
     isLastStep = currentTabIndex === stepperContent.length - 1,
     isPrevBtn = currentTabIndex !== 0;
@@ -166,6 +189,7 @@ let Stepper = ({isRightToLeftLanguage, isVertical, isInline, stepperContent, sub
   const submitHandler = () => {
     submitStepper()
     submit()
+    submitQuizToUserData()
   };
 
   return (
@@ -201,7 +225,7 @@ let Stepper = ({isRightToLeftLanguage, isVertical, isInline, stepperContent, sub
 
 const Builder = ({
                    setLoading, submit, setSubmitting,
-                   setFormData, formData, error, reCaptcha, setRecaptcha, arrayQuestions, setArrayQuestions, regionItemId
+                   setFormData, formData, error, reCaptcha, setRecaptcha, arrayQuestions, setArrayQuestions, regionItemId, submitQuizToUserData
                  }) => {
 
   const [acceptFirstTerms, setAcceptFirstTerms] = useState({
@@ -233,11 +257,9 @@ const Builder = ({
 
   const [regionData, setRegionData] = useState([])
 
-  console.log(regionData, 'regionData')
-
-  const contextRegion = useContext(RegionContext)
-  console.log(contextRegion, 'builder')
-
+  const [addrtype, setAddrtype] = useState(["single", "multiple"])
+  //const Add = addrtype.map(Add => Add)
+  const handleAddrTypeChange = (event) =>  setQuestionsData({...questionsData, answerSelectionType: event.target.value})
 
   const inputChangeVariant = (e) => {
     setVariant(e.target.value)
@@ -256,14 +278,14 @@ const Builder = ({
   }
 
   const handleSubmit = () => {
-    setQuestionsData({ ...questionsData, variants: variantsArray })
+    setQuestionsData({ ...questionsData, answers: variantsArray })
     setArrayQuestions((prevArray) => [...prevArray, questionsData])
     setQuestionsData(initialQuestion)
     setVariantsArray([])
   }
 
   useEffect(() => {
-    setQuestionsData({ ...questionsData, variants: variantsArray })
+    setQuestionsData({ ...questionsData, answers: variantsArray })
   }, [variantsArray])
 
 
@@ -365,13 +387,23 @@ const Builder = ({
       content: (
         <div>
           <input
-            className="w-50 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-900 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className=""
             type="text"
             id="titleQuestions"
             placeholder="Вкажіть назву кавеста"
             value={formData.titleQuestions}
             onChange={(event) => {
               setFormData({...formData, titleQuestions: event.target.value})
+            }}
+          />
+          <textarea
+            className=""
+            type="text"
+            id="quizSynopsis"
+            placeholder="Вкажіть назву кавеста"
+            value={formData.quizSynopsis}
+            onChange={(event) => {
+              setFormData({...formData, quizSynopsis: event.target.value})
             }}
           />
           <label>
@@ -397,7 +429,7 @@ const Builder = ({
           }
           }>
           <input
-            className="w-50 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-900 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className=""
             type="text"
             id="question"
             placeholder="Вкажіть запитання"
@@ -407,6 +439,13 @@ const Builder = ({
               setQuestionsData({...questionsData, question: event.target.value})
             }}
           />
+          < select
+            onChange={e => handleAddrTypeChange(e)}
+            className="browser-default custom-select" >
+            {
+              addrtype.map((item, key) => <option key={key} value={key}>{item}</option>)
+            }
+          </select >
           <div>
             <input type="text" value={variant} onChange={inputChangeVariant} placeholder="Вкадіть варіанти відповідей" />
             <button type="button" onClick={inputSubmitVariant}>Додати варіант</button>
@@ -420,19 +459,18 @@ const Builder = ({
             ))}
           </ul>
           <input
-            className="w-50 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-900 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className=""
             type="text"
             required
-            id="trueAnswer"
+            id="correctAnswer"
             placeholder="Вкажіть правильну відповідь"
-            value={questionsData.trueAnswer}
+            value={questionsData.correctAnswer}
             onChange={(event) => {
-              setQuestionsData({...questionsData, trueAnswer: event.target.value})
+              setQuestionsData({...questionsData, correctAnswer: event.target.value})
             }}
           />
           <button
-            type="submit"
-            className="text-white bg-purple-700 hover:bg-purple-800 focus:outline-none focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+            type="submit" className="">
             + Додати питання
           </button>
           </form>
@@ -471,17 +509,6 @@ const Builder = ({
               <div className="card-body">
                 <div className="form-group">
                   <div className="mb-4 relative">
-                    {/*<input*/}
-                    {/*  className="w-50 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-900 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"*/}
-                    {/*  type="text"*/}
-                    {/*  id="title"*/}
-                    {/*  maxLength={25}*/}
-                    {/*  placeholder="Вкажіть запитання"*/}
-                    {/*  value={formData.title}*/}
-                    {/*  onChange={(event) => {*/}
-                    {/*    setFormData({...formData, title: event.target.value})*/}
-                    {/*  }}*/}
-                    {/*/>*/}
                     {error ? <p
                       className="text-sm absolute top-12 text-red-900 font-bold bg-white rounded-lg p-1">{error}</p> : null}
                     <ReCAPTCHA
@@ -520,7 +547,7 @@ const Builder = ({
   return (
     <div className="container">
       <h2>Конструктор квесту</h2>
-      <Stepper stepperContent={stepperContent} submitStepper={submitStepper} submit={submit} reCaptcha={reCaptcha}/>
+      <Stepper stepperContent={stepperContent} submitStepper={submitStepper} submit={submit} reCaptcha={reCaptcha} submitQuizToUserData={submitQuizToUserData}/>
     </div>
   )
 }

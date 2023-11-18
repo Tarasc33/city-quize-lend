@@ -14,7 +14,6 @@ const Dashboard = () => {
   const [loading, setLoadingDb] = useState(false)
 
   const contextRegion = useContext(RegionContext)
-  console.log(contextRegion.setRegion, 'dashboard')
   console.log(contextRegion.region, 'region')
 
   useEffect(() => {
@@ -56,7 +55,7 @@ const Dashboard = () => {
           return (
             <Link key={index} href={`/quest/${item.id}?data=${router.query.data}`}>
               <h2>
-                {item.titleQuestions}
+                {item.quizTitle}
               </h2>
             </Link>
           )
