@@ -11,30 +11,32 @@ const Login = () => {
   return (
     <div>
       <div>
-        <h3>Вхід/Реєстрація</h3>
-        <div>
-          <button
-            className="button-login"
-            onClick={ async () => {
-                await auth.signInWithPopup(GoogleProvider)
-                  .then((response) => {
-                    const { user, credential } = response
-                    contextValue.setAuthObject(prevState => ({
-                      ...prevState,
-                      isAuthenticated: true,
-                      userName: user!.displayName,
-                      userId: user!.uid,
-                      email: user!.email,
-                    }))
-                      if (auth.currentUser) {
-                        return auth.currentUser.getIdToken()
-                      }
-                  }).then(() => {})
-                      router.push(`/builder`)
-                  .catch(error => console.log(error))
+        <div className="auth-container">
+          <h3>Вхід/Реєстрація</h3>
+          <div>
+            <button
+              className="button-login"
+              onClick={ async () => {
+                  await auth.signInWithPopup(GoogleProvider)
+                    .then((response) => {
+                      const { user, credential } = response
+                      contextValue.setAuthObject(prevState => ({
+                        ...prevState,
+                        isAuthenticated: true,
+                        userName: user!.displayName,
+                        userId: user!.uid,
+                        email: user!.email,
+                      }))
+                        if (auth.currentUser) {
+                          return auth.currentUser.getIdToken()
+                        }
+                    }).then(() => {})
+                        router.push(`/builder`)
+                    .catch(error => console.log(error))
+                }
               }
-            }
-          >Вхід з Google</button>
+            >Вхід з Google</button>
+          </div>
         </div>
       </div>
     </div>
