@@ -36,11 +36,6 @@ const Login = () => {
           >Log in with Google</button>
         </>
       </div>
-      <div>
-        <p>
-          I have no account, <Link href={'/auth/registration'}>Register Now</Link>
-        </p>
-      </div>
     </div>
   )
 }
