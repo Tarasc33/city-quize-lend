@@ -29,7 +29,7 @@ const Login = () => {
                         return auth.currentUser.getIdToken()
                       }
                   }).then(() => {})
-                      router.push(`/builder?data=${encodeURIComponent(router?.query?.data)}`)
+                      router.push(`/builder?data=${encodeURIComponent(router.query.data)}`)
                   .catch(error => console.log(error))
               }
             }
