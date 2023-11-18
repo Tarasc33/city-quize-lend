@@ -1,8 +1,9 @@
 import {auth, GoogleProvider} from "../../db/firebase"
-import {ThemeContext} from "../../../../pages/_app"
+import {RegionContext, ThemeContext} from "../../../../pages/_app"
 
-import {useContext} from "react"
+import {useContext, useState} from "react"
 import {useRouter} from "next/router"
+import {useEffect} from "react"
 
 const Login = () => {
   const contextValue = useContext(ThemeContext)
@@ -17,17 +18,19 @@ const Login = () => {
             onClick={ async () => {
                 await auth.signInWithPopup(GoogleProvider)
                   .then((response) => {
-                    console.log(response)
-                      contextValue.setAuthObject(prevState => ({
-                        ...prevState,
-                        isAuthenticated: true,
-                        userName: response.user?.displayName,
-                        userId: response.user?.uid,
-                        email: response.user?.email,
-                        token: response.user?.idToken
-                      }))
+                    const { user, credential } = response
+                    contextValue.setAuthObject(prevState => ({
+                      ...prevState,
+                      isAuthenticated: true,
+                      userName: user!.displayName,
+                      userId: user!.uid,
+                      email: user!.email,
+                    }))
+                      if (auth.currentUser) {
+                        return auth.currentUser.getIdToken()
+                      }
                   }).then(() => {})
-                      router.push(`/builder?data=${encodeURIComponent(router?.query?.data)}`)
+                      router.push(`/builder`)
                   .catch(error => console.log(error))
               }
             }

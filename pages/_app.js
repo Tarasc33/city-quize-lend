@@ -30,11 +30,14 @@ export default function MyApp({Component, pageProps}) {
     <>
       {router.pathname.includes('dashboard') ? (
         <RegionContext.Provider value={contextRegion}>
+        <RegionContext.Provider value={contextRegion}>
           <PrimaryLayout>
             <Component {...pageProps} />
           </PrimaryLayout>
         </RegionContext.Provider>
+        </RegionContext.Provider>
       ) : router.pathname.includes('builder') ? (
+        <RegionContext.Provider value={contextRegion}>
         <ThemeContext.Provider value={contextValue}>
         <AuthStateWrapper>
             <BuilderLayout>
@@ -42,6 +45,7 @@ export default function MyApp({Component, pageProps}) {
             </BuilderLayout>
           </AuthStateWrapper>
         </ThemeContext.Provider>
+        </RegionContext.Provider>
       ) : router.pathname.includes('quest') ? (
         <QuestLayout>
           <Component {...pageProps} />

@@ -14,6 +14,8 @@ const Dashboard = () => {
   const [loading, setLoadingDb] = useState(false)
 
   const contextRegion = useContext(RegionContext)
+  console.log(contextRegion.setRegion, 'dashboard')
+  console.log(contextRegion.region, 'region')
 
   useEffect(() => {
     const getFormApp = async (regionNameId) => {
@@ -45,7 +47,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <Link href={`/auth/login?data=${encodeURIComponent(router.query.data)}`}>+ Створити свій квест</Link>
+      <Link href={`/auth/login`}>+ Створити свій квест</Link>
       <h2>
         list quests {router.query.data}
       </h2>

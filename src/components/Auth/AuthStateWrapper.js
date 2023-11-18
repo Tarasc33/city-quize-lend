@@ -20,7 +20,7 @@ const AuthStateWrapper = ({ children }) => {
             userName: user.displayName,
             userId: user.uid,
           }))
-          router.push(`/builder?data=${encodeURIComponent(router.query.data)}`)
+          router.push(`/builder`)
         } catch (error) {
           console.error(error)
         }
