@@ -27,11 +27,7 @@ const BuilderPage = () => {
 
   const contextValue = useContext(ThemeContext)
   const contextRegion = useContext(RegionContext)
-  console.log(contextValue, 'contextValue builder')
-  console.log(regionItemId, contextValue, contextRegion)
-
-  const targetRef = useRef()
-  const tasksRef = ref(db)
+  console.log(contextRegion.region, 'builder')
 
   const [formData, setFormData] = useState(initialFormData)
   const [loading, setLoading] = useState(false)
@@ -48,9 +44,9 @@ const BuilderPage = () => {
   const submit = () => {
     const regionId = uuid()
 
-    set(ref(db, 'regions/' + regionItemId + '/' + regionId), {
+    set(ref(db, 'regions/' +  contextRegion.region + '/' + regionId), {
       id: regionId,
-      regionName: contextRegion.region || regionItemId,
+      regionName: contextRegion.region,
       time: serverTimestamp(),
       title: formData.title,
       status: false,
@@ -81,13 +77,10 @@ const BuilderPage = () => {
   }
 
   useEffect(() => {
-    const { data } = router.query;
-
-    // Check if 'data' query parameter is 'undefined' or not present
-    if (data === 'undefined' || data === undefined) {
-      router.push('/'); // Redirect to your desired path
-    }
-  }, [router.query]);
+     if (contextRegion.region === 'default' || contextRegion.region === undefined) {
+       router.push('/')
+     }
+   }, [])
 
   return (
     <>

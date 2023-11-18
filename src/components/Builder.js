@@ -3,6 +3,8 @@ import ReCAPTCHA from "react-google-recaptcha"
 import {child, get, ref} from "firebase/database"
 import {db} from "../../src/components/db/firebase"
 import {useRouter} from "next/router"
+import {useContext} from "react"
+import {RegionContext} from "../../pages/_app"
 
 const initialQuestion = {
   id: '',
@@ -224,7 +226,6 @@ const Builder = ({
   const isProduction = process.env.NODE_ENV === 'production'
   const siteKey = isProduction ? process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY : '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'
 
-  console.log(arrayQuestions, 'arrayQuestions')
 
   const [questionsData, setQuestionsData] = useState(initialQuestion)
   const [variant, setVariant] = useState('')
@@ -233,6 +234,9 @@ const Builder = ({
   const [regionData, setRegionData] = useState([])
 
   console.log(regionData, 'regionData')
+
+  const contextRegion = useContext(RegionContext)
+  console.log(contextRegion, 'builder')
 
 
   const inputChangeVariant = (e) => {
