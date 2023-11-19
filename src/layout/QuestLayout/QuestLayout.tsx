@@ -1,7 +1,7 @@
 const QuestLayout = ({children}) => {
   return (
     <div>
-      <p>Quest header</p>
+      {/*<p>Quest header</p>*/}
       {children}
     </div>
   )

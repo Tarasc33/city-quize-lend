@@ -5,6 +5,7 @@ import {db} from "../../src/components/db/firebase"
 import {useRouter} from "next/router"
 import {useContext} from "react"
 import {RegionContext} from "../../pages/_app"
+import {v4 as uuid} from "uuid";
 
 // {
 //   "question": "How can you access the state of a component from inside of a member function?",
@@ -25,6 +26,7 @@ import {RegionContext} from "../../pages/_app"
 // },
 
 const initialQuestion = {
+  id: '',
   question: '',
   questionType: 'text',
   questionPic: '',
@@ -139,7 +141,8 @@ let StepperFooter = ({
       style={{justifyContent: isPrevBtn ? 'space-between' : 'flex-end'}}
     >
       {isPrevBtn && (
-        <button className="stepper-footer-btn" onClick={previousStepHandler}>{stepperContent[currentTabIndex - 1].label}</button>
+        <button className="stepper-footer-btn"
+                onClick={previousStepHandler}>{stepperContent[currentTabIndex - 1].label}</button>
       )}
       <button
         className={`stepper-footer-btn ${isLastStep ? 'success' : 'primary'}`}
@@ -163,7 +166,16 @@ let StepperFooter = ({
   )
 }
 
-let Stepper = ({isRightToLeftLanguage, isVertical, isInline, stepperContent, submitStepper, reCaptcha, submit, submitQuizToUserData}) => {
+let Stepper = ({
+                 isRightToLeftLanguage,
+                 isVertical,
+                 isInline,
+                 stepperContent,
+                 submitStepper,
+                 reCaptcha,
+                 submit,
+                 submitQuizToUserData
+               }) => {
   const [currentTabIndex, setCurrentTabIndex] = useState(0),
     isLastStep = currentTabIndex === stepperContent.length - 1,
     isPrevBtn = currentTabIndex !== 0;
@@ -189,7 +201,7 @@ let Stepper = ({isRightToLeftLanguage, isVertical, isInline, stepperContent, sub
   const submitHandler = () => {
     submitStepper()
     submit()
-    submitQuizToUserData()
+    //submitQuizToUserData()
   };
 
   return (
@@ -224,8 +236,18 @@ let Stepper = ({isRightToLeftLanguage, isVertical, isInline, stepperContent, sub
 }
 
 const Builder = ({
-                   setLoading, submit, setSubmitting,
-                   setFormData, formData, error, reCaptcha, setRecaptcha, arrayQuestions, setArrayQuestions, regionItemId, submitQuizToUserData
+                   setLoading,
+                   submit,
+                   setSubmitting,
+                   setFormData,
+                   formData,
+                   error,
+                   reCaptcha,
+                   setRecaptcha,
+                   arrayQuestions,
+                   setArrayQuestions,
+                   regionItemId,
+                   submitQuizToUserData
                  }) => {
 
   const [acceptFirstTerms, setAcceptFirstTerms] = useState({
@@ -250,16 +272,16 @@ const Builder = ({
   const isProduction = process.env.NODE_ENV === 'production'
   const siteKey = isProduction ? process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY : '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'
 
-
   const [questionsData, setQuestionsData] = useState(initialQuestion)
   const [variant, setVariant] = useState('')
   const [variantsArray, setVariantsArray] = useState([])
 
   const [regionData, setRegionData] = useState([])
+  console.log(regionData, 'regionData')
 
-  const [addrtype, setAddrtype] = useState(["single", "multiple"])
+  const [addrtype, setAddrtype] = useState(["single"])
   //const Add = addrtype.map(Add => Add)
-  const handleAddrTypeChange = (event) =>  setQuestionsData({...questionsData, answerSelectionType: event.target.value})
+  const handleAddrTypeChange = (event) => setQuestionsData({...questionsData, answerSelectionType: event.target.value})
 
   const inputChangeVariant = (e) => {
     setVariant(e.target.value)
@@ -278,48 +300,16 @@ const Builder = ({
   }
 
   const handleSubmit = () => {
-    setQuestionsData({ ...questionsData, answers: variantsArray })
+    setQuestionsData({...questionsData, answers: variantsArray})
     setArrayQuestions((prevArray) => [...prevArray, questionsData])
     setQuestionsData(initialQuestion)
     setVariantsArray([])
   }
 
   useEffect(() => {
-    setQuestionsData({ ...questionsData, answers: variantsArray })
+    const id = uuid()
+    setQuestionsData({...questionsData, answers: variantsArray, id: id})
   }, [variantsArray])
-
-
-
-  // useEffect(() => {
-  //   setLoadingDb(true)
-  //   onValue(tasksRef, (snapshot) => {
-  //     const data = snapshot.val()
-  //     if (data !== undefined) {
-  //       const dataArray = Object.keys(data?.cloud || {}).length > 0 ? Object.values(data.cloud) : []
-  //       setDataCloud(dataArray)
-  //     }
-  //   })
-  //   fetchAllCloudData()
-  // }, [])
-
-  // const fetchAllCloudData = () => {
-  //   get(tasksRef).then((snapshot) => {
-  //     const data = snapshot.val()
-  //     if (data !== undefined) {
-  //       const dataArray = Object.keys(data?.cloud || {}).length > 0 ? Object.values(data.cloud) : []
-  //       setData // const [formData, setFormData] = useState(initialFormData)
-  //   // const [loading, setLoading] = useState(false)
-  //   // const [isOpen, setIsOpen] = useState(false)
-  //   //
-  //   // const [error, setError] = useState('')
-  //   // const [submitting, setSubmitting] = useState(false)
-  //   // const [reCaptcha, setRecaptcha] = useState(false)Cloud(dataArray)
-  //       setLoadingDb(false)
-  //     }
-  //   }).catch((err) => {
-  //     console.error(err)
-  //   })
-  // }
 
   useEffect(() => {
     const getFormApp = async (regionItemId) => {
@@ -346,15 +336,6 @@ const Builder = ({
     }
   }, [router.isReady, router.query.form])
 
-  // useEffect(() => {
-  //   document.body.classList.toggle('modal-open', isOpen)
-  // }, [isOpen])
-
-
-
-  // useEffect(() => {
-  //   if (submitting) setError(validation(formData.title))
-  // }, [formData.title])
 
   const firstTermsHandler = () => {
     setAcceptFirstTerms((prev) => ({checked: !prev.checked, touched: true}));
@@ -374,38 +355,48 @@ const Builder = ({
   };
 
   const secondStepAsyncFunc = async () => {
-    //it can be an API call
-    setIsSecondStepLoading(true);
-    await timeout(3000);
-    setIsSecondStepLoading(false);
-    console.log('second step clicked');
+    setIsSecondStepLoading(true)
+    await timeout(3000)
+    setIsSecondStepLoading(false)
   };
+
+  console.log(arrayQuestions)
 
   const stepperContent = [
     {
       label: 'Крок 1',
       content: (
-        <div>
-          <input
-            className=""
-            type="text"
-            id="titleQuestions"
-            placeholder="Вкажіть назву кавеста"
-            value={formData.titleQuestions}
-            onChange={(event) => {
-              setFormData({...formData, titleQuestions: event.target.value})
-            }}
-          />
-          <textarea
-            className=""
-            type="text"
-            id="quizSynopsis"
-            placeholder="Вкажіть назву кавеста"
-            value={formData.quizSynopsis}
-            onChange={(event) => {
-              setFormData({...formData, quizSynopsis: event.target.value})
-            }}
-          />
+        <form>
+          <div>
+            <label>
+              Назва квесту
+              <input
+                className="input"
+                type="text"
+                id="titleQuestions"
+                placeholder="Вкажіть назву квесту"
+                value={formData.titleQuestions}
+                onChange={(event) => {
+                  setFormData({...formData, titleQuestions: event.target.value})
+                }}
+              />
+            </label>
+          </div>
+          <div>
+            <label>
+              Опис квесту
+              <textarea
+                className="input input-textarea"
+                id="quizSynopsis"
+                maxLength={256}
+                placeholder="Вкажіть опис квесту"
+                value={formData.quizSynopsis}
+                onChange={(event) => {
+                  setFormData({...formData, quizSynopsis: event.target.value})
+                }}
+              />
+            </label>
+          </div>
           <label>
             <input
               type="checkbox"
@@ -414,7 +405,7 @@ const Builder = ({
             />{' '}
             Так, назву підтверджую
           </label>
-        </div>
+        </form>
       ),
       isError: !acceptFirstTerms.checked && acceptFirstTerms.touched,
       isComplete: acceptFirstTerms.checked,
@@ -428,51 +419,102 @@ const Builder = ({
             handleSubmit()
           }
           }>
-          <input
-            className=""
-            type="text"
-            id="question"
-            placeholder="Вкажіть запитання"
-            required
-            value={questionsData.question}
-            onChange={(event) => {
-              setQuestionsData({...questionsData, question: event.target.value})
-            }}
-          />
-          < select
-            onChange={e => handleAddrTypeChange(e)}
-            className="browser-default custom-select" >
-            {
-              addrtype.map((item, key) => <option key={key} value={key}>{item}</option>)
+            {arrayQuestions.length > 0 ?
+              <div>
+                <h4>Список запитань</h4>
+                {arrayQuestions.map((item, index) => {
+                    return (
+                      <>
+                        <div key={index}>
+                          <h4>Запитання: {item.question}</h4>
+                          <div>
+                            <h5>Варіанти відповідей</h5>
+                            {item.answers.map((item, index) => {
+                              return (
+                                <ul key={index}>
+                                  <li>{item}</li>
+                                </ul>
+                              )
+                            })}
+                          </div>
+                          <p>Номер правильної відповіді: {item.correctAnswer}</p>
+                        </div>
+                        <button onClick={() => {
+                          setArrayQuestions(arrayQuestions.filter((_, i) => i !== index))
+                        }}>x</button>
+                      </>
+                    )
+                  }
+                )}
+
+              </div> : null
             }
-          </select >
-          <div>
-            <input type="text" value={variant} onChange={inputChangeVariant} placeholder="Вкадіть варіанти відповідей" />
-            <button type="button" onClick={inputSubmitVariant}>Додати варіант</button>
-          </div>
-          <ul>
-            {variantsArray.map((task, index) => (
-              <li key={index}>
-                {task}
-                <button onClick={() => handleDelete(index)}>x</button>
-              </li>
-            ))}
-          </ul>
-          <input
-            className=""
-            type="text"
-            required
-            id="correctAnswer"
-            placeholder="Вкажіть правильну відповідь"
-            value={questionsData.correctAnswer}
-            onChange={(event) => {
-              setQuestionsData({...questionsData, correctAnswer: event.target.value})
-            }}
-          />
-          <button
-            type="submit" className="">
-            + Додати питання
-          </button>
+            <div>
+              <label>
+                Запитання
+                <input
+                  className="input"
+                  type="text"
+                  id="question"
+                  placeholder="Вкажіть запитання"
+                  required
+                  value={questionsData.question}
+                  onChange={(event) => {
+                    setQuestionsData({...questionsData, question: event.target.value})
+                  }}
+                />
+              </label>
+            </div>
+            <div>
+              <label>
+                Тип питання
+                <select
+                  onChange={e => handleAddrTypeChange(e)}
+                  className="browser-default custom-select">
+                  {
+                    addrtype.map((item, key) => <option key={key} value={key}>{item}</option>)
+                  }
+                </select>
+              </label>
+            </div>
+            <h4>Варіанти відповідей</h4>
+            <div>
+              <input
+                className="input"
+                type="text"
+                value={variant}
+                onChange={inputChangeVariant}
+                placeholder="Вкажіть варіанти відповідей"
+              />
+              <button type="button" onClick={inputSubmitVariant}>+ Додати</button>
+            </div>
+            <ul>
+              {variantsArray.map((task, index) => (
+                <li key={index}>
+                  {task}
+                  <button onClick={() => handleDelete(index)}>x</button>
+                </li>
+              ))}
+            </ul>
+            <h4>Правильна відповідь</h4>
+            <div>
+              <label>Відповідь
+                <input
+                  className=""
+                  type="text"
+                  required
+                  id="correctAnswer"
+                  placeholder="Вкажіть правильну відповідь"
+                  value={questionsData.correctAnswer}
+                  onChange={(event) => {
+                    setQuestionsData({...questionsData, correctAnswer: event.target.value})
+                  }}
+                />
+              </label>
+            </div>
+            <button type="submit" className="">
+              + Додати питання
+            </button>
           </form>
           <label>
             <input
@@ -497,11 +539,11 @@ const Builder = ({
             onSubmit={(event) => {
               event.preventDefault()
               setSubmitting(true)
-                //if (formData.title.length === 0) {
-                //setError('Поле не може бути пустим...')
+              //if (formData.title.length === 0) {
+              //setError('Поле не може бути пустим...')
               //} else {
-                setLoading(true)
-                submit()
+              setLoading(true)
+              submit()
               //}
             }
             }>
@@ -547,7 +589,8 @@ const Builder = ({
   return (
     <div className="container">
       <h2>Конструктор квесту</h2>
-      <Stepper stepperContent={stepperContent} submitStepper={submitStepper} submit={submit} reCaptcha={reCaptcha} submitQuizToUserData={submitQuizToUserData}/>
+      <Stepper stepperContent={stepperContent} submitStepper={submitStepper} submit={submit} reCaptcha={reCaptcha}
+               submitQuizToUserData={submitQuizToUserData}/>
     </div>
   )
 }
