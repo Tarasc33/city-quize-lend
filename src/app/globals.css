@@ -3,13 +3,26 @@
 }
 
 :root {
-  --dark: #000;
+  --bg-color: #fcfbff;
+  --dark: #333;
+  --red: #c83d32;
+  --blue: #62a1a9;
+  --green: #99af5d;
+  --yelow: #e6b740;
+  --darken-blue: #2b595a;
 }
 
 body {
   color: var(--dark);
-  /*background: linear-gradient(180deg, rgb(0, 91, 187) 40%, rgb(255, 213, 0) 41%);*/
+  background-color: var(--bg-color);
 }
+
+/*Reset default style*/
+body, div, section, h1, h2, h3, h4, h5, img, p ul, li, nav, header {
+  padding: 0;
+  margin: 0;
+}
+/*Reset default style*/
 
 /* Карта */
 #Ukraine {
@@ -17,23 +30,23 @@ body {
 }
 
 #KyivCity {
-  fill: #3184EA;
+  fill: var(--blue);
   opacity: 0;
 }
 
 .mapBackground {
-  fill: rgba(116, 178, 255, 0.68);
-  stroke: #000;
+  fill: var(--yelow);
+  stroke: var(--dark);
   stroke-width: 0.5;
 }
 
 #Ukraine path:hover {
-  fill: #ffff00;
+  fill: var(--green);
 }
 
 .pointerCircle {
   r: 2px;
-  fill: #f00;
+  fill: var(--red);
   stroke-linecap: square;
   stroke-linejoin: bevel;
   stroke-miterlimit: 4;
@@ -50,7 +63,7 @@ body {
   font-family: 'Roboto', sans-serif;
   font-weight: bold;
   font-size: 0.7em;
-  fill: #000;
+  fill: var(--dark);
   text-shadow: white 1px 1px 0, white -1px -1px 0,
   white -1px 1px 0, white 1px -1px;
 }
@@ -83,7 +96,6 @@ body {
 #Volyn:hover ~.cityLutsk,
 #Zaporizhia:hover ~.cityZaporizhia,
 #Zhytomyr:hover ~.cityZhytomyr{
-
   visibility: visible;
   opacity: 1;
 }
@@ -274,25 +286,34 @@ body {
 /* Builder */
 
 /* Login */
+
+.auth-container {
+  margin: 10% auto 0 auto;
+  max-width: 400px;
+  height: 300px;
+  text-align: center;
+  padding: 20px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 4px 0 15px rgba(49,49,49,.05),0 4px 15px rgba(49,49,49,.05);
+}
+
+.auth-container h3 {
+  margin: 30px 0 50px 0;
+}
+
 .button-login {
-  background-color:rgb(255, 195, 195);
+  background-color: rgb(255, 195, 195);
   border-radius: 16px;
   height: 55px;
   width: 200px;
   font-size: 15px;
   transition: all 0.5s ease;
+  border: 1px solid #333333;
 }
 .button-login:hover{
   background: rgba(0,0,0,0);
   cursor: pointer;
-}
-.auth-container{
-  margin: 0 auto;
-  max-width: 400px;
-  text-align: center;
-  padding: 20px;
-  background: aliceblue;
-  border-radius: 16px;
 }
 
 
