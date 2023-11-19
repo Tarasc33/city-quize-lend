@@ -3,7 +3,7 @@ import {v4 as uuid} from "uuid"
 import {ref, serverTimestamp, set} from "firebase/database"
 import {db} from "../src/components/db/firebase"
 import {showNotification} from "../src/helpers/showNotification"
-import {useRef, useState, useContext, useEffect} from "react"
+import {useState, useContext, useEffect} from "react"
 import {ToastContainer} from "react-toastify"
 import Builder from "../src/components/Builder"
 import '../src/app/globals.css'
@@ -118,7 +118,6 @@ const initialFormData = {
 
 const BuilderPage = () => {
   const router = useRouter()
-  const targetRef = useRef()
   const regionItemId = router.query.data
 
   const contextValue = useContext(ThemeContext)
@@ -163,7 +162,8 @@ const BuilderPage = () => {
         "prevQuestionBtn": "Попереднє",
         "nextQuestionBtn": "Наступне",
         "resultPageHeaderText": "Ви завершили тест. Ви набрали <correctIndexLength> з <questionLength> питань."
-      }
+      },
+      completeQuizCount: 0,
     }).then(() => {
       set(ref(db, 'users/' + contextValue.authObj.userId  + '/' + regionId), {
         id: regionId,

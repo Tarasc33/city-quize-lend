@@ -22,6 +22,10 @@ body, div, section, h1, h2, h3, h4, h5, img, p ul, li, nav, header {
   padding: 0;
   margin: 0;
 }
+
+a {
+  text-decoration: none;
+}
 /*Reset default style*/
 
 /* Карта */
@@ -41,6 +45,10 @@ body, div, section, h1, h2, h3, h4, h5, img, p ul, li, nav, header {
 }
 
 #Ukraine path:hover {
+  fill: var(--green);
+}
+
+#Ukraine .mapImage:hover {
   fill: var(--green);
 }
 

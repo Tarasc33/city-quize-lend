@@ -3,9 +3,7 @@ import ReCAPTCHA from "react-google-recaptcha"
 import {child, get, ref} from "firebase/database"
 import {db} from "../../src/components/db/firebase"
 import {useRouter} from "next/router"
-import {useContext} from "react"
-import {RegionContext} from "../../pages/_app"
-import {v4 as uuid} from "uuid";
+import {v4 as uuid} from "uuid"
 
 // {
 //   "question": "How can you access the state of a component from inside of a member function?",
