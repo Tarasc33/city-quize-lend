@@ -46,9 +46,14 @@ const Dashboard = () => {
 
   return (
     <>
-      <Link href={`/auth/login`}>+ Створити свій квест</Link>
+      <nav>
+        <ul>
+          <li><Link href="/">Головна</Link></li>
+          <li><Link href={`/auth/login`}>+ Створити новий квест</Link></li>
+        </ul>
+      </nav>
       <h2>
-        list quests {router.query.data}
+        Квести для <span>{router.query.data} region</span>
       </h2>
       <div>
         {dataRegion.map((item, index) => {

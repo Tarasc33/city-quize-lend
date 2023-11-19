@@ -118,6 +118,7 @@ const initialFormData = {
 
 const BuilderPage = () => {
   const router = useRouter()
+  const targetRef = useRef()
   const regionItemId = router.query.data
 
   const contextValue = useContext(ThemeContext)
@@ -164,6 +165,32 @@ const BuilderPage = () => {
         "resultPageHeaderText": "Ви завершили тест. Ви набрали <correctIndexLength> з <questionLength> питань."
       }
     }).then(() => {
+      set(ref(db, 'users/' + contextValue.authObj.userId  + '/' + regionId), {
+        id: regionId,
+        regionName: contextRegion.region,
+        time: serverTimestamp(),
+        status: false,
+        like: initialFormData.like,
+        reports: initialFormData.reports,
+        questions: arrayQuestions,
+        quizTitle: formData.titleQuestions,
+        quizSynopsis: formData.quizSynopsis || '',
+        nrOfQuestions: '20',
+        userId: contextValue.authObj.userId,
+        userName: contextValue.authObj.userName,
+        appLocale: {
+          "landingHeaderText": "<questionLength> запитань",
+          "question": "",
+          "startQuizBtn": "Розпочати тест",
+          "resultFilterAll": "Всі",
+          "resultFilterCorrect": "Правильні",
+          "resultFilterIncorrect": "Не правильні",
+          "prevQuestionBtn": "Попереднє",
+          "nextQuestionBtn": "Наступне",
+          "resultPageHeaderText": "Ви завершили тест. Ви набрали <correctIndexLength> з <questionLength> питань."
+        }
+      })
+    }).then(() => {
       setLoading(false)
       setFormData({
         id: '',
@@ -179,37 +206,12 @@ const BuilderPage = () => {
       setError('')
       setSubmitting(false)
     }).then(() => {
-      router.push('/')
+      router.push(`/quest/${regionId}?data=${contextRegion.region}`)
     })
   }
 
   const submitQuizToUserData = () => {
-    const idQuiz = uuid()
-    set(ref(db, 'users/' + contextValue.authObj.userId  + '/' + idQuiz), {
-      id: idQuiz,
-      regionName: contextRegion.region,
-      time: serverTimestamp(),
-      status: false,
-      like: initialFormData.like,
-      reports: initialFormData.reports,
-      questions: arrayQuestions,
-      quizTitle: formData.titleQuestions,
-      quizSynopsis: formData.quizSynopsis || '',
-      nrOfQuestions: '20',
-      userId: contextValue.authObj.userId,
-      userName: contextValue.authObj.userName,
-      appLocale: {
-        "landingHeaderText": "<questionLength> запитань",
-        "question": "",
-        "startQuizBtn": "Розпочати тест",
-        "resultFilterAll": "Всі",
-        "resultFilterCorrect": "Правильні",
-        "resultFilterIncorrect": "Не правильні",
-        "prevQuestionBtn": "Попереднє",
-        "nextQuestionBtn": "Наступне",
-        "resultPageHeaderText": "Ви завершили тест. Ви набрали <correctIndexLength> з <questionLength> питань."
-      }
-    })
+
   }
 
   useEffect(() => {
