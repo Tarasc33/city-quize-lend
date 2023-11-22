@@ -59,6 +59,7 @@ const Settings = () => {
                 remove(dbRef).then(() => dataUserQuiz())
                 remove(regiondbRef).then(() => console.log("Deleted"))
               }}>x</button>
+              <button onClick={() => {}}>Редагувати</button>
             </>
           )
         })}
