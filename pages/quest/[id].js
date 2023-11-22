@@ -1,6 +1,6 @@
 import {useRouter} from 'next/router'
-import {useEffect, useState, React} from "react"
-import {child, get, ref} from "firebase/database"
+import {useEffect, useState} from "react"
+import {child, get, ref, update} from "firebase/database"
 import {db} from "../../src/components/db/firebase"
 import '../../src/app/globals.css'
 import Quiz from 'react-quiz-component'
@@ -45,10 +45,18 @@ const Id = () => {
     }
   }, [router.isReady, router.query.form])
 
+  console.log(itemQuest, 'itemQuest')
 
   const setQuizResult = (obj) => {
-    console.log(obj);
-    // YOUR LOGIC GOES HERE
+    if (obj) {
+      const dbRef = ref(db, `regions/${itemQuest.regionName}/${itemQuest.id}`)
+      update(dbRef, {completeQuizCount: itemQuest.completeQuizCount + 1}).then(() => {
+        console.log('complete regions')
+      }).then(() => {
+      }).catch((err) => {
+        console.log(err)
+      })
+    }
   }
 
   return (
@@ -56,9 +64,8 @@ const Id = () => {
       {itemQuest && itemQuest.questions ?
       <Quiz
         quiz={itemQuest}
-        //shuffle={true}
-        //shuffleAnswer={true}
-        //disableSynopsis={true}
+        shuffle={true}
+        shuffleAnswer={true}
         showDefaultResult={true}
         //renderCustomResultPage={renderCustomResultPage}
         onComplete={setQuizResult}

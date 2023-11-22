@@ -3,7 +3,7 @@ import Builder from "./Builder"
 import PersonalInformation from "./steps/PersonalInformation/PersonalInformation"
 import Education from "./steps/Education/Education"
 import {ref, serverTimestamp, set} from "firebase/database"
-import {v4 as uuid} from "uuid";
+import {v4 as uuid} from "uuid"
 import {db} from "../db/firebase"
 import {showNotification} from "../../helpers/showNotification"
 import {useRouter} from "next/router"
@@ -161,9 +161,10 @@ const Board = (props) => {
         setLoading(false)
         setValues(initialData)
         showNotification("Ваш квест зараз розглядається нашою командою. Після схвалення воно буде опубліковане і доступне на карті.", 'success')
-      }).then(() => {
-        router.push(`/quest/${regionId}?data=${contextRegion.region}`)
       })
+        //.then(() => {
+        //router.push(`/quest/${regionId}?data=${contextRegion.region}`)
+      //})
     })
   }
 
