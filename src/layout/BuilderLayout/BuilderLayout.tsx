@@ -1,7 +1,7 @@
 import {useContext} from "react"
 import {ThemeContext} from "../../../pages/_app"
 import {useRouter} from "next/router"
-import Link from "next/link";
+import Link from "next/link"
 
 const BuilderLayout = ({ children }) => {
   const contextValue = useContext(ThemeContext)
@@ -12,6 +12,7 @@ const BuilderLayout = ({ children }) => {
       <nav>
         <ul>
           <li><Link href="/">Головна</Link></li>
+          <li><Link href="/builder">Конструктор</Link></li>
           <li>
             <Link href="/builder/settings">{contextValue.authObj.isAuthenticated ? contextValue.authObj.userName : null}</Link>
           </li>

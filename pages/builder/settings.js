@@ -4,8 +4,7 @@ import {useEffect, useState} from "react"
 import {child, get, ref, remove} from "firebase/database"
 import {db} from "../../src/components/db/firebase"
 import {useContext} from "react"
-import {RegionContext, ThemeContext} from "../_app"
-import React from "react"
+import {ThemeContext} from "../_app"
 
 const Settings = () => {
   const tasksRef = ref(db)
@@ -43,18 +42,21 @@ const Settings = () => {
       </h2>
       <div>
         {userQuize.map((item, index) => {
+          const time = new Date(item.time).toLocaleDateString("en-US")
           return (
             <>
               <div>
-                <h3>{item.quizTitle}</h3>
+                <h2>
+                  {item.quizTitle}
+                </h2>
+                <p>{item.quizSynopsis}</p>
+                <p>{time}</p>
+                <p>{item.userName}</p>
               </div>
               <button onClick={() => {
                 const regiondbRef = ref(db, `regions/${item.regionName}/${item.id}`)
                 const dbRef = ref(db, `users/${contextValue.authObj.userId}/${item.id}`)
-                remove(dbRef).then(() => {
-                  dataUserQuiz()
-                  //setUserQuiz([])
-                })
+                remove(dbRef).then(() => dataUserQuiz())
                 remove(regiondbRef).then(() => console.log("Deleted"))
               }}>x</button>
             </>
