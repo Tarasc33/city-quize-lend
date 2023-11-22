@@ -1,5 +1,4 @@
 import {useRouter} from 'next/router'
-import {ToastContainer} from "react-toastify"
 import {useEffect, useState, React} from "react"
 import {child, get, ref} from "firebase/database"
 import {db} from "../../src/components/db/firebase"
@@ -65,37 +64,6 @@ const Id = () => {
         onComplete={setQuizResult}
       />
       : null}
-      {/*{*/}
-      {/*  itemQuest && itemQuest.questions ? (*/}
-      {/*    <>*/}
-      {/*      <h1>quest</h1>*/}
-      {/*      <p>{itemQuest.quizTitle}</p>*/}
-      {/*      <p>{itemQuest.time}</p>*/}
-      {/*      <div> {itemQuest?.questions?.map((item, index) => {*/}
-      {/*          return (*/}
-      {/*            <>*/}
-      {/*              <h3 key={index}>{item.question}</h3>*/}
-      {/*              {item?.answers.map((answer, index) => {*/}
-      {/*                return (*/}
-      {/*                  <p key={index}>{answer}</p>*/}
-      {/*                )*/}
-      {/*              })}*/}
-      {/*            </>*/}
-      {/*          )*/}
-      {/*        })*/}
-      {/*      }*/}
-      {/*      </div>*/}
-      {/*      <Quiz*/}
-      {/*        quiz={itemQuest}*/}
-      {/*        shuffleAnswer={true}*/}
-      {/*        disableSynopsis={true}*/}
-      {/*      />*/}
-      {/*    ) : (*/}
-      {/*      <p>Loading...</p>*/}
-      {/*      )}*/}
-      {/*      <ToastContainer/>*/}
-      {/*    </>*/}
-      {/*  )}*/}
     </>
   )
 }

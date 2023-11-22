@@ -57,11 +57,20 @@ const Dashboard = () => {
       </h2>
       <div>
         {dataRegion.map((item, index) => {
+          const time = new Date(item.time).toLocaleDateString("en-US")
           return (
-            <Link key={index} href={`/quest/${item.id}?data=${router.query.data}`}>
+            <Link
+              key={index}
+              href={`/quest/${item.id}?data=${router.query.data}`}
+              target="_blank"
+            >
               <h2>
                 {item.quizTitle}
               </h2>
+              <p>{item.quizSynopsis}</p>
+              <p>{time}</p>
+              <p>{item.userName}</p>
+              <button>Пройти тест+</button>
             </Link>
           )
         })}
