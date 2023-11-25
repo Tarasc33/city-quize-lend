@@ -63,6 +63,7 @@ const Navigation = props => {
       <button
         className="btn stepper-footer-btn btn-continue"
         type="submit"
+        disabled={props?.isLastStep ? props.values?.questions?.length === 0 : !props.values?.quizTitle}
         onClick={(e) => (
           props.isLastStep ? props.submitHandler(e) : props.nextStepHandler(e)
         )}
@@ -118,6 +119,7 @@ const Builder = ({content, submit, values, loading}) => {
             content={content}
             currentTabIndex={currentTabIndex}
             loading={loading}
+            values={values}
           />
         </div>
       </div>

@@ -6,7 +6,7 @@ import {child, get, ref, update} from "firebase/database"
 import {db} from "../src/components/db/firebase"
 import {useContext} from "react"
 import {RegionContext} from "./_app"
-import Image from "next/image";
+import Image from "next/image"
 
 const Dashboard = () => {
   const tasksRef = ref(db)
@@ -15,7 +15,6 @@ const Dashboard = () => {
   const [loading, setLoadingDb] = useState(false)
 
   const contextRegion = useContext(RegionContext)
-  console.log(contextRegion.region, 'region')
 
   const getFormApp = async (regionNameId) => {
     try {

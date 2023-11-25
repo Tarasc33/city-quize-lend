@@ -20,13 +20,16 @@ const Id = () => {
   const id = router.query.id
   const tasksRef = ref(db)
   const [itemQuest, setItemQuest] = useState([])
+  const [loading, setLoadingDb] = useState(false)
 
   useEffect(() => {
     const getFormApp = async (regionItemId) => {
+      setLoadingDb(true)
       try {
         get(child(tasksRef, `regions/${regionItemId}/${id}`)).then((snapshot) => {
           if (snapshot.exists()) {
             setItemQuest(snapshot.val())
+            setLoadingDb(false)
           } else {
             console.log("No data available")
           }
@@ -59,9 +62,13 @@ const Id = () => {
     }
   }
 
+  if (loading) {
+    return <p>Завантаження...</p>
+  }
+
   return (
     <>
-      {itemQuest && itemQuest.questions ?
+    {itemQuest && itemQuest.questions ?
       <Quiz
         quiz={itemQuest}
         shuffle={true}

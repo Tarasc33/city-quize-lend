@@ -7,6 +7,7 @@ import {useRouter} from "next/router"
 
 const BuilderPage = () => {
   const router = useRouter()
+  const edit = router.query.data
   const contextRegion = useContext(RegionContext)
 
   useEffect(() => {
@@ -17,7 +18,9 @@ const BuilderPage = () => {
 
   return (
     <>
-      <Board/>
+      <Board
+        edit={edit}
+      />
       <ToastContainer/>
     </>
   )
