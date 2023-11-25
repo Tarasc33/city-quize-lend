@@ -17,14 +17,17 @@ const initialState = {
 
 export const ThemeContext = createContext(initialState);
 export const RegionContext = createContext('')
+export const QuizObjectContext = createContext({})
 
 export default function MyApp({Component, pageProps}) {
   const router = useRouter()
   const [authObj, setAuthObject] = useState(initialState)
   const [region, setRegion] = useState('default')
+  const [quizObject, setQuizObject] = useState({})
 
   const contextValue = useMemo(() => ({ authObj, setAuthObject }), [authObj, setAuthObject])
   const contextRegion = useMemo(() => ({ region, setRegion }), [region, setRegion])
+  const contextQuizObject = useMemo(() => ({ quizObject, setQuizObject }), [quizObject, setQuizObject])
 
   return (
     <>
@@ -37,15 +40,17 @@ export default function MyApp({Component, pageProps}) {
           </ThemeContext.Provider>
         </RegionContext.Provider>
       ) : router.pathname.includes('builder') ? (
-        <RegionContext.Provider value={contextRegion}>
-          <ThemeContext.Provider value={contextValue}>
-            <AuthStateWrapper>
-              <BuilderLayout>
-                <Component {...pageProps} />
-              </BuilderLayout>
-            </AuthStateWrapper>
-          </ThemeContext.Provider>
-        </RegionContext.Provider>
+        <QuizObjectContext.Provider value={contextQuizObject}>
+          <RegionContext.Provider value={contextRegion}>
+            <ThemeContext.Provider value={contextValue}>
+              <AuthStateWrapper>
+                <BuilderLayout>
+                  <Component {...pageProps} />
+                </BuilderLayout>
+              </AuthStateWrapper>
+            </ThemeContext.Provider>
+          </RegionContext.Provider>
+        </QuizObjectContext.Provider>
       ) : router.pathname.includes('quest') ? (
         <QuestLayout>
           <Component {...pageProps} />

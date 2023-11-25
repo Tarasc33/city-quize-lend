@@ -2,13 +2,13 @@ import {useEffect, useState} from "react"
 import Builder from "./Builder"
 import PersonalInformation from "./steps/PersonalInformation/PersonalInformation"
 import Education from "./steps/Education/Education"
-import {ref, serverTimestamp, set} from "firebase/database"
+import {ref, serverTimestamp, set, update} from "firebase/database"
 import {v4 as uuid} from "uuid"
 import {db} from "../db/firebase"
 import {showNotification} from "../../helpers/showNotification"
 import {useRouter} from "next/router"
 import {useContext} from "react"
-import {RegionContext, ThemeContext} from "../../../pages/_app"
+import {RegionContext, ThemeContext, QuizObjectContext} from "../../../pages/_app"
 
 const initialData = {
   id: '',
@@ -43,31 +43,19 @@ const Board = (props) => {
 
   const contextValue = useContext(ThemeContext)
   const contextRegion = useContext(RegionContext)
-  // const mapState = ({user, data}) => ({
-  //   websiteExists: data.websiteExists,
-  //   website: data.website,
-  //   currentUser: user.currentUser,
-  //   ready: data.website?.ready,
-  //   loading: data.loading
-  // })
-
-  //const {websiteExists, website, currentUser, ready, loading} = useSelector(mapState)
-
+  const contextQuizObject = useContext(QuizObjectContext)
   const [values, setValues] = useState(initialData)
-  console.log(values, 'values')
   const [editedValues, setEditedValues] = useState({})
   const [loading, setLoading] = useState(false)
 
   const [errors, setErrors] = useState({})
-  //const [dataLoading, setDataLoading] = useState(!websiteExists && loading)
-
-  //const userId = currentUser?.user?._id
 
   useEffect(() => {
-    //if (website && dataLoading) {
-    //setValues([])
-    //setDataLoading(false)
-    //}
+    if (props.edit === 'edit') {
+      setValues(contextQuizObject.quizObject)
+    } else {
+      setValues(initialData)
+    }
   }, [])
 
   const addFieldItem = (item, field) => {
@@ -127,45 +115,80 @@ const Board = (props) => {
   ]
 
   const submit = () => {
-    console.log('submit')
-    const regionId = uuid()
-    const data = {
-      id: regionId,
-      regionName: contextRegion?.region,
-      time: serverTimestamp(),
-      status: false,
-      like: values.like,
-      reports: values.reports,
-      questions: values.questions,
-      quizTitle: values.quizTitle,
-      quizSynopsis: values.quizSynopsis || '',
-      nrOfQuestions: values.nrOfQuestions,
-      userId: contextValue.authObj.userId,
-      userName: contextValue.authObj.userName,
-      appLocale: {
-        "landingHeaderText": "<questionLength> запитань",
-        "question": "",
-        "startQuizBtn": "Розпочати тест",
-        "resultFilterAll": "Всі",
-        "resultFilterCorrect": "Правильні",
-        "resultFilterIncorrect": "Не правильні",
-        "prevQuestionBtn": "Назад",
-        "nextQuestionBtn": "Продовжити",
-        "resultPageHeaderText": "Ви завершили тест. Ви набрали <correctIndexLength> з <questionLength> питань."
-      },
-      completeQuizCount: 0,
-    }
-
-    set(ref(db, 'regions/' + contextRegion?.region + '/' + regionId), data).then(() => {
-      set(ref(db, 'users/' + contextValue.authObj.userId + '/' + regionId), data).then(() => {
-        setLoading(false)
-        setValues(initialData)
-        showNotification("Ваш квест зараз розглядається нашою командою. Після схвалення воно буде опубліковане і доступне на карті.", 'success')
+    if (Object.keys(contextQuizObject.quizObject).length > 0 && props.edit === 'edit') {
+      const updateData = {
+        id: contextQuizObject.quizObject?.id,
+        regionName: contextQuizObject.quizObject?.regionName,
+        time: serverTimestamp(),
+        status: false,
+        like: values.like,
+        reports: values.reports,
+        questions: values.questions,
+        quizTitle: values.quizTitle,
+        quizSynopsis: values.quizSynopsis || '',
+        nrOfQuestions: values.nrOfQuestions,
+        userId: contextValue.authObj.userId,
+        userName: contextValue.authObj.userName,
+        appLocale: {
+          "landingHeaderText": "<questionLength> запитань",
+          "question": "",
+          "startQuizBtn": "Розпочати тест",
+          "resultFilterAll": "Всі",
+          "resultFilterCorrect": "Правильні",
+          "resultFilterIncorrect": "Не правильні",
+          "prevQuestionBtn": "Назад",
+          "nextQuestionBtn": "Продовжити",
+          "resultPageHeaderText": "Ви завершили тест. Ви набрали <correctIndexLength> з <questionLength> питань."
+        },
+        completeQuizCount: 0,
+      }
+      const dbRef = ref(db, 'regions/' + contextQuizObject.quizObject?.regionName + '/' + contextQuizObject.quizObject?.id)
+      const dbRefUser = ref(db, 'users/' + contextValue.authObj.userId + '/' + contextQuizObject.quizObject?.id)
+      update(dbRef, updateData).then(() => {
+        update(dbRefUser, updateData).then(() => {
+          contextQuizObject.setQuizObject({})
+        })
+      }).then(() => {
+        showNotification('Оновлено regions', 'success')
+      }).catch((err) => {
+        console.log(err)
       })
-        //.then(() => {
-        //router.push(`/quest/${regionId}?data=${contextRegion.region}`)
-      //})
-    })
+    } else if (!props.edit) {
+      const regionId = uuid()
+      const data = {
+        id: regionId,
+        regionName: contextRegion?.region,
+        time: serverTimestamp(),
+        status: false,
+        like: values.like,
+        reports: values.reports,
+        questions: values.questions,
+        quizTitle: values.quizTitle,
+        quizSynopsis: values.quizSynopsis || '',
+        nrOfQuestions: values.nrOfQuestions,
+        userId: contextValue.authObj.userId,
+        userName: contextValue.authObj.userName,
+        appLocale: {
+          "landingHeaderText": "<questionLength> запитань",
+          "question": "",
+          "startQuizBtn": "Розпочати тест",
+          "resultFilterAll": "Всі",
+          "resultFilterCorrect": "Правильні",
+          "resultFilterIncorrect": "Не правильні",
+          "prevQuestionBtn": "Назад",
+          "nextQuestionBtn": "Продовжити",
+          "resultPageHeaderText": "Ви завершили тест. Ви набрали <correctIndexLength> з <questionLength> питань."
+        },
+        completeQuizCount: 0,
+      }
+      set(ref(db, 'regions/' + contextRegion?.region + '/' + regionId), data).then(() => {
+        set(ref(db, 'users/' + contextValue.authObj.userId + '/' + regionId), data).then(() => {
+          setLoading(false)
+          setValues(initialData)
+          showNotification("Ваш квест зараз розглядається нашою командою. Після схвалення воно буде опубліковане і доступне на карті.", 'success')
+        })
+      })
+    }
   }
 
   return (
