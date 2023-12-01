@@ -367,3 +367,7 @@ a {
 .dashboard-li-quest a{
   text-decoration: none;
 }
+
+.quests-dashboard {
+  display: flex;
+}

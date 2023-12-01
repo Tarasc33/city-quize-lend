@@ -7,6 +7,7 @@ import {db} from "../src/components/db/firebase"
 import {useContext} from "react"
 import {RegionContext} from "./_app"
 import Image from "next/image"
+import {regions} from '../src/helpers/regionType'
 
 const Dashboard = () => {
   const tasksRef = ref(db)
@@ -53,11 +54,30 @@ const Dashboard = () => {
           <li className='dashboard-li-quest'><Link href={`/auth/login`}>Створити новий квест</Link></li>
         </ul>
       </nav>
-      <h2>
-        Квести для <span>{router.query.data} region</span>
-      </h2>
+      <div>
+       <Link href={'/'}>Повернутись до карти</Link><h2>Квести для <span>{router.query.data} region</span></h2>
+      </div>
+      <div>
+        {regions.map((item, index) => {
+          switch (router.query.data) {
+            case item:
+              return (
+                <div key={index} style={{ width: '500px', height: '700px', position: 'relative' }}>
+                  <Image
+                    src={`/region-map/${router.query.data}.jpeg`}
+                    layout="fill"
+                    objectFit="contain"
+                    alt=""
+                  />
+                </div>
+              )
+            default:
+              break
+          }
+          })}
+      </div>
       {dataRegion.length === 0 && !loading ? <p>Квестів немає</p> : loading ? <p>Завантаження...</p> : (
-        <div>
+        <div className='quests-dashboard'>
           {dataRegion.map((item, index) => {
             const time = new Date(item.time).toLocaleDateString("en-US")
             return (

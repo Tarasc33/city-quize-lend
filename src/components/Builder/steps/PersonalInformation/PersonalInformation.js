@@ -9,7 +9,7 @@ const PersonalInformation = ({values, setValues, errors}) => {
 
   return (
     <form>
-      <h4 className="form-section-title">Personal Information</h4>
+      <h4 className="form-section-title">Назва квесту</h4>
       <div className="block-two-row mobile center">
         <div>
           <Input
