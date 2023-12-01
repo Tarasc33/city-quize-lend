@@ -1,7 +1,6 @@
 import {useRouter} from 'next/router'
-import {ToastContainer} from "react-toastify"
-import {useEffect, useState, React} from "react"
-import {child, get, ref} from "firebase/database"
+import {useEffect, useState} from "react"
+import {child, get, ref, update} from "firebase/database"
 import {db} from "../../src/components/db/firebase"
 import '../../src/app/globals.css'
 import Quiz from 'react-quiz-component'
@@ -21,13 +20,16 @@ const Id = () => {
   const id = router.query.id
   const tasksRef = ref(db)
   const [itemQuest, setItemQuest] = useState([])
+  const [loading, setLoadingDb] = useState(false)
 
   useEffect(() => {
     const getFormApp = async (regionItemId) => {
+      setLoadingDb(true)
       try {
         get(child(tasksRef, `regions/${regionItemId}/${id}`)).then((snapshot) => {
           if (snapshot.exists()) {
             setItemQuest(snapshot.val())
+            setLoadingDb(false)
           } else {
             console.log("No data available")
           }
@@ -46,56 +48,36 @@ const Id = () => {
     }
   }, [router.isReady, router.query.form])
 
+  console.log(itemQuest, 'itemQuest')
 
   const setQuizResult = (obj) => {
-    console.log(obj);
-    // YOUR LOGIC GOES HERE
+    if (obj) {
+      const dbRef = ref(db, `regions/${itemQuest.regionName}/${itemQuest.id}`)
+      update(dbRef, {completeQuizCount: itemQuest.completeQuizCount + 1}).then(() => {
+        console.log('complete regions')
+      }).then(() => {
+      }).catch((err) => {
+        console.log(err)
+      })
+    }
+  }
+
+  if (loading) {
+    return <p>Завантаження...</p>
   }
 
   return (
     <>
-      {itemQuest && itemQuest.questions ?
+    {itemQuest && itemQuest.questions ?
       <Quiz
         quiz={itemQuest}
-        //shuffle={true}
-        //shuffleAnswer={true}
-        //disableSynopsis={true}
+        shuffle={true}
+        shuffleAnswer={true}
         showDefaultResult={true}
         //renderCustomResultPage={renderCustomResultPage}
         onComplete={setQuizResult}
       />
       : null}
-      {/*{*/}
-      {/*  itemQuest && itemQuest.questions ? (*/}
-      {/*    <>*/}
-      {/*      <h1>quest</h1>*/}
-      {/*      <p>{itemQuest.quizTitle}</p>*/}
-      {/*      <p>{itemQuest.time}</p>*/}
-      {/*      <div> {itemQuest?.questions?.map((item, index) => {*/}
-      {/*          return (*/}
-      {/*            <>*/}
-      {/*              <h3 key={index}>{item.question}</h3>*/}
-      {/*              {item?.answers.map((answer, index) => {*/}
-      {/*                return (*/}
-      {/*                  <p key={index}>{answer}</p>*/}
-      {/*                )*/}
-      {/*              })}*/}
-      {/*            </>*/}
-      {/*          )*/}
-      {/*        })*/}
-      {/*      }*/}
-      {/*      </div>*/}
-      {/*      <Quiz*/}
-      {/*        quiz={itemQuest}*/}
-      {/*        shuffleAnswer={true}*/}
-      {/*        disableSynopsis={true}*/}
-      {/*      />*/}
-      {/*    ) : (*/}
-      {/*      <p>Loading...</p>*/}
-      {/*      )}*/}
-      {/*      <ToastContainer/>*/}
-      {/*    </>*/}
-      {/*  )}*/}
     </>
   )
 }
