@@ -9,7 +9,7 @@ const BuilderLayout = ({ children }) => {
 
   return (
     <div>
-      <nav>
+      <nav >
         <ul>
           <li><Link href="/">Головна</Link></li>
           <li>
