@@ -324,6 +324,19 @@ a {
   cursor: pointer;
 }
 
+.dashboard-li-main{
+  background-color: rgb(255, 195, 195);
+  border-radius: 16px;
+  height: 20px;
+  width: 70px;
+  font-size: 15px;
+  transition: all 0.5s ease;
+  border: 1px solid #333333;
+  padding-left: auto;
+  padding-right: auto;
+  list-style-type: none;
+}
+
 /*Login*/
 
 /*Quiz*/
@@ -334,5 +347,23 @@ a {
 
 /*Quiz*/
 
+.dashboard-li-quest{
+  background-color: rgb(255, 195, 195);
+  border-radius: 16px;
+  height: 20px;
+  width: 200px;
+  font-size: 15px;
+  transition: all 0.5s ease;
+  border: 1px solid #333333;
+  padding-left: auto;
+  padding-right: auto;
+  list-style-type: none;
+}
 
+.dashboard-li-main a{
+  text-decoration: none;
+}
 
+.dashboard-li-quest a{
+  text-decoration: none;
+}

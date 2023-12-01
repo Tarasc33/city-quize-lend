@@ -47,10 +47,10 @@ const Dashboard = () => {
 
   return (
     <>
-      <nav>
-        <ul>
-          <li><Link href="/">Головна</Link></li>
-          <li><Link href={`/auth/login`}>+ Створити новий квест</Link></li>
+      <nav className='dashboard-nav'>
+        <ul className='dashboard-ul'>
+          <li className='dashboard-li-main'><Link href="/">Головна</Link></li>
+          <li className='dashboard-li-quest'><Link href={`/auth/login`}>Створити новий квест</Link></li>
         </ul>
       </nav>
       <h2>
