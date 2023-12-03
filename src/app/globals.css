@@ -368,6 +368,12 @@ a {
   text-decoration: none;
 }
 
-.dashboard-nav{
-display: block;
+.dashboard-li-main:hover{
+  background: rgba(0, 0, 0, 0);
+  cursor: pointer;
+}
+
+.dashboard-li-quest:hover{
+  background: rgba(0, 0, 0, 0);
+  cursor: pointer;
 }
