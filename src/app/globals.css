@@ -377,3 +377,7 @@ a {
   background: rgba(0, 0, 0, 0);
   cursor: pointer;
 }
+
+.dashboard-ul{
+  display: flex;
+}
