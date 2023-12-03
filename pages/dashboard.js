@@ -50,7 +50,7 @@ const Dashboard = () => {
       <nav className='dashboard-nav'>
         <ul className='dashboard-ul'>
           <li className='dashboard-li-main'><Link href="/">Головна</Link></li>
-          <li className='dashboard-li-quest'><Link href={`/auth/login`}>Створити новий квест</Link></li>
+          <li className='dashboard-li-quest'><Link href={`/auth/login`}>Створити квест</Link></li>
         </ul>
       </nav>
       <h2>
