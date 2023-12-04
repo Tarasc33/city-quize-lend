@@ -55,18 +55,18 @@ const Settings = () => {
 
   return (
     <>
-      {loading ? <p>Завантаження...</p> : (
+      {loading ? <p className='loader'>Завантаження...</p> : (
         <>
-          <h2>Settings</h2>
+          <h2>Мої квести</h2>
           <div>
             {userQuize.map((item, index) => {
               const time = new Date(item.time).toLocaleDateString("en-US")
               return (
                 <>
                   <div key={index}>
-                    <h2>
+                    <h3>
                       {item.quizTitle}
-                    </h2>
+                    </h3>
                     <p>{item.quizSynopsis}</p>
                     <p>{time}</p>
                     <p>{item.userName}</p>
