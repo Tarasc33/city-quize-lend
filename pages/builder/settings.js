@@ -1,19 +1,19 @@
-import {useRouter} from 'next/router'
 import '../../src/app/globals.css'
 import {useEffect, useState} from "react"
 import {child, get, ref, remove} from "firebase/database"
 import {db} from "../../src/components/db/firebase"
 import {useContext} from "react"
-import {ThemeContext} from "../_app"
+import {ThemeContext, QuizObjectContext} from "../_app"
+import {useRouter} from "next/router"
 
 const Settings = () => {
   const tasksRef = ref(db)
   const router = useRouter()
   const [loading, setLoadingDb] = useState(false)
   const [userQuize, setUserQuiz] = useState([])
-  console.log(userQuize, 'userQuize')
 
   const contextValue = useContext(ThemeContext)
+  const contextQuizObject = useContext(QuizObjectContext)
 
   const dataUserQuiz = () => {
     setLoadingDb(true)
@@ -34,24 +34,39 @@ const Settings = () => {
     }
   }
 
+
+  const fetchDataById = (regionId, id) => {
+    get(child(tasksRef, `regions/${regionId}/${id}`)).then((snapshot) => {
+      if (snapshot.exists()) {
+        contextQuizObject.setQuizObject(snapshot.val())
+      } else {
+        console.log("No data available")
+      }
+    }).then(() => {
+        router.push(`/builder?data=edit`)
+    }).catch((err) => {
+      console.error(err)
+    })
+  }
+
   useEffect(() => {
     dataUserQuiz()
   }, [])
 
   return (
     <>
-      {loading ? <p>Завантаження...</p> : (
+      {loading ? <p className='loader'>Завантаження...</p> : (
         <>
-          <h2>Settings</h2>
+          <h2>Мої квести</h2>
           <div>
             {userQuize.map((item, index) => {
               const time = new Date(item.time).toLocaleDateString("en-US")
               return (
                 <>
-                  <div>
-                    <h2>
+                  <div key={index}>
+                    <h3>
                       {item.quizTitle}
-                    </h2>
+                    </h3>
                     <p>{item.quizSynopsis}</p>
                     <p>{time}</p>
                     <p>{item.userName}</p>
@@ -64,7 +79,9 @@ const Settings = () => {
                   }}>x
                   </button>
                   <button onClick={() => {
-                  }}>Редагувати
+                    fetchDataById(item.regionName, item.id)
+                  }}>
+                    Редагувати
                   </button>
                 </>
               )

@@ -7,6 +7,7 @@ import {useRouter} from "next/router"
 const Login = () => {
   const contextValue = useContext(ThemeContext)
   const router = useRouter()
+  const [loading, setLoadingDb] = useState(false)
 
   return (
     <div>
@@ -15,6 +16,7 @@ const Login = () => {
         <button
           className="button-login"
           onClick={async () => {
+            setLoadingDb(true)
             await auth.signInWithPopup(GoogleProvider)
               .then((response) => {
                 const {user, credential} = response
@@ -25,6 +27,7 @@ const Login = () => {
                   userId: user!.uid,
                   email: user!.email,
                 }))
+                setLoadingDb(false)
               }).then(async () => {
                 if (auth.currentUser) {
                   const tokenId = await auth.currentUser.getIdToken()
@@ -39,7 +42,8 @@ const Login = () => {
               }).catch(error => console.log(error))
           }
           }
-        >Увійти через Google
+        >
+          {loading ? 'Завантаження...' : 'Увійти через Google'}
         </button>
       </div>
     </div>
