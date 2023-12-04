@@ -28,6 +28,16 @@ a {
 }
 /*Reset default style*/
 
+
+.loader {
+  display: flex;
+  margin: 0 auto;
+  width: 100%;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
 /* Карта */
 #Ukraine {
   height: 100vh;
@@ -340,6 +350,11 @@ a {
 /*Login*/
 
 /*Quiz*/
+
+.react-quiz-container {
+  margin: 80px auto 50px auto!important;
+  height: 100%;
+}
 
 .react-quiz-container .number-of-selection, .react-quiz-container .selection-tag.single {
   display: none;

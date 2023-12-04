@@ -4,6 +4,13 @@ import BuilderLayout from "../src/layout/BuilderLayout/BuilderLayout"
 import { useRouter } from "next/router"
 import AuthStateWrapper from "../src/components/Auth/AuthStateWrapper"
 import { createContext, useState, useMemo } from 'react'
+import { Roboto } from 'next/font/google'
+
+const roboto = Roboto({
+  weight: ['400', '500', '700'],
+  style: 'normal',
+  subsets: ['latin'],
+})
 
 const initialState = {
   token: "",
@@ -31,6 +38,11 @@ export default function MyApp({Component, pageProps}) {
 
   return (
     <>
+      <style jsx global>{`
+        html {
+          font-family: ${roboto.style.fontFamily};
+        }
+      `}</style>
       {router.pathname.includes('dashboard') ? (
         <RegionContext.Provider value={contextRegion}>
           <ThemeContext.Provider value={contextValue}>
