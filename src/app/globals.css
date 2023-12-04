@@ -335,28 +335,28 @@ a {
 /*Quiz*/
 
 .dashboard-li-quest{
-  background-color: rgb(255, 195, 195);
+  background-color: rgb(217, 255, 0);
   border-radius: 16px;
   height: 20px;
   width: 125px;
   font-size: 15px;
   transition: all 0.5s ease;
   border: 1px solid #333333;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
   list-style-type: none;
 }
 
 .dashboard-li-main{
-  background-color: rgb(255, 195, 195);
+  background-color: rgb(217, 255, 0);
   border-radius: 16px;
   height: 20px;
   width: 75px;
   font-size: 15px;
   transition: all 0.5s ease;
   border: 1px solid #333333;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
   list-style-type: none;
 }
 
