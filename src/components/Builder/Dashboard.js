@@ -15,6 +15,7 @@ const initialData = {
   regionName: '',
   time: serverTimestamp(),
   status: false,
+  questionPic: "",
   like: 0,
   reports: 0,
   questions: [],
@@ -49,6 +50,7 @@ const Board = (props) => {
   const [loading, setLoading] = useState(false)
 
   const [errors, setErrors] = useState({})
+  console.log(values, 'values')
 
   useEffect(() => {
     if (props.edit === 'edit') {
@@ -122,6 +124,7 @@ const Board = (props) => {
         time: serverTimestamp(),
         status: false,
         like: values.like,
+        questionPic: values.questionPic,
         reports: values.reports,
         questions: values.questions,
         quizTitle: values.quizTitle,
@@ -162,6 +165,7 @@ const Board = (props) => {
         status: false,
         like: values.like,
         reports: values.reports,
+        questionPic: values.questionPic,
         questions: values.questions,
         quizTitle: values.quizTitle,
         quizSynopsis: values.quizSynopsis || '',

@@ -63,7 +63,7 @@ const Id = () => {
   }
 
   if (loading) {
-    return <p>Завантаження...</p>
+    return <p className='loader'>Завантаження...</p>
   }
 
   return (
