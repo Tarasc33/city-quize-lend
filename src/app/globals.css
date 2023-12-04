@@ -414,3 +414,8 @@ a {
 .dashboard-content {
   background-color: white;
 }
+
+.dashboard-map div {
+  margin: 0 auto;
+  padding: 40px 0;
+}
