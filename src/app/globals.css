@@ -13,6 +13,7 @@
 }
 
 body {
+  font-family: 'Roboto', sans-serif;
   color: var(--dark);
   background-color: var(--bg-color);
 }
@@ -385,4 +386,14 @@ a {
 
 .quests-dashboard {
   display: flex;
+  flex-wrap: wrap;
+}
+
+.quests-dashboard a {
+  display: block;
+  max-width: 500px;
+}
+
+.dashboard-content {
+  background-color: white;
 }

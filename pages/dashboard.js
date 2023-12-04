@@ -55,9 +55,10 @@ const Dashboard = () => {
         </ul>
       </nav>
       <div>
-       <Link href={'/'}>Повернутись до карти</Link><h2>Квести для <span>{router.query.data} region</span></h2>
+       <Link href={'/'}>Повернутись до карти</Link><h2>Квести: <span>{router.query.data} region</span></h2>
       </div>
-      <div>
+      <div className="dashboard-content">
+      <div className="dashboard-map">
         {regions.map((item, index) => {
           switch (router.query.data) {
             case item:
@@ -76,7 +77,7 @@ const Dashboard = () => {
           }
           })}
       </div>
-      {dataRegion.length === 0 && !loading ? <p>Квестів немає</p> : loading ? <p>Завантаження...</p> : (
+      {dataRegion.length === 0 && !loading ? <p>Квестів немає</p> : loading ? <p className='loader'>Завантаження...</p> : (
         <div className='quests-dashboard'>
           {dataRegion.map((item, index) => {
             const time = new Date(item.time).toLocaleDateString("en-US")
@@ -87,12 +88,13 @@ const Dashboard = () => {
                 target="_blank"
                 passHref
               >
-                <h2>
+                <h3>
                   {item.quizTitle}
-                </h2>
+                </h3>
                 <p>{item.quizSynopsis}</p>
                 <p>{time}</p>
                 <p>{item.userName}</p>
+                <p>Пройдено: {item.completeQuizCount}</p>
                 <button>Пройти тест+</button>
                 <a>
                   <span>{item.like}</span>
@@ -117,6 +119,7 @@ const Dashboard = () => {
           })}
         </div>
       )}
+      </div>
     </>
   )
 }

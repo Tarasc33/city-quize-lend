@@ -1,7 +1,11 @@
-import {useState, useEffect} from "react"
+import {useState, useEffect, useContext} from "react"
 import Input from "../../inputs/Input"
 import {v4 as uuid} from "uuid"
 import TextArea from "../../inputs/TextArea"
+import Compressor from "compressorjs"
+import {ref, getDownloadURL, getStorage, uploadBytes} from "firebase/storage"
+import {RegionContext, ThemeContext} from "../../../../../pages/_app"
+
 
 const Education = ({addEducationItem, updateEducationItem, removeEducationItem, errors, validate, values, setValues}) => {
 
@@ -23,9 +27,14 @@ const Education = ({addEducationItem, updateEducationItem, removeEducationItem, 
   const [openModal, setOpenModal] = useState(false)
   const [variant, setVariant] = useState('')
   const [variantsArray, setVariantsArray] = useState(dataInput.editing ? values.answers : [])
+  const [imagesPreviewUrls, setImagesPreviewUrls] = useState('')
+
+  const contextRegion = useContext(RegionContext)
+  const contextValue = useContext(ThemeContext)
+
 
   const handleChange = (fieldName, value) => {
-    errors[fieldName] && validate(fieldName, dataInput)
+    // errors[fieldName] && validate(fieldName, dataInput)
     const updatedValues = {...dataInput, [fieldName]: value}
     setDataInput(updatedValues)
   }
@@ -48,6 +57,46 @@ const Education = ({addEducationItem, updateEducationItem, removeEducationItem, 
   useEffect(() => {
     setDataInput({...dataInput, answers: variantsArray})
   }, [variantsArray])
+
+
+  const handleImageChange = (e) => {
+    const acceptedFiles = e.target.files
+    console.log(acceptedFiles)
+    const imageFile = acceptedFiles[0]
+    console.log(imageFile)
+
+
+    const createObjectURL = (file) => {
+      if (window.webkitURL) {
+        return window.webkitURL.createObjectURL(file)
+      }
+      else if (window.URL && window.URL.createObjectURL) {
+        return window.URL.createObjectURL(file)
+      }
+    }
+
+    new Compressor(imageFile, {
+      convertTypes: ['image/png', 'image/webp', 'image/heic', 'image/heif', 'image/bmp', 'image/svg', 'image/tif', 'image/tiff', 'image/gif', 'image/raw'],
+      convertSize: 0,
+      maxWidth: 500,
+      maxHeight: 500,
+      success: (results) => {
+        Array.from(acceptedFiles)?.map((file) => {
+          setImagesPreviewUrls(createObjectURL(file))
+          const storage = getStorage();
+          const storageRef = ref(storage, `questions/images/${contextRegion.region}/${contextValue.authObj.userId}/${file.name}`)
+          uploadBytes(storageRef, results, "data_url").then((snapshot) => {
+            getDownloadURL(snapshot.ref).then((url) => {
+              handleChange('questionPic', url)
+            })
+          })
+        })
+      },
+      error(err) {
+        console.log(err)
+      }
+    })
+  }
 
   return (
     <div>
@@ -72,6 +121,12 @@ const Education = ({addEducationItem, updateEducationItem, removeEducationItem, 
                     <p>Номер правильної відповіді: {item.correctAnswer}</p>
                     <h4>Пояснення до відповіді: {item.explanation}</h4>
                     <h4>Кількість балів: {item.point}</h4>
+                    <img
+                      width='100'
+                      height='100'
+                      src={item.questionPic}
+                      alt=""
+                    />
                   </div>
                   <button type="button" onClick={() => {
                     setOpenModal(!openModal)
@@ -92,6 +147,7 @@ const Education = ({addEducationItem, updateEducationItem, removeEducationItem, 
           addEducationItem(dataInput)
         }
         setDataInput(initialProject)
+        setImagesPreviewUrls('')
         setOpenModal(!openModal)
       }}>
         <div className="block-two-row mobile">
@@ -163,6 +219,25 @@ const Education = ({addEducationItem, updateEducationItem, removeEducationItem, 
             value={dataInput?.point || ""}
             error={errors.point}
             handleChange={(event) => handleChange('point', event.target.value)}
+          />
+        </div>
+        <h4>Картинка</h4>
+        <div>
+          <input
+            id="fotoUploader"
+            type="file"
+            name="avatarUploader"
+            onChange={(e) => handleImageChange(e)}
+            accept="image/*, .heic, .heif"
+          />
+          <label htmlFor="fotoUploader">
+            <p>Додати картинку</p>
+          </label>
+          <img
+            width='100'
+            height='100'
+            src={imagesPreviewUrls || ''}
+            alt=""
           />
         </div>
         <button

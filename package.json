@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@frank-mayer/react-tag-cloud": "^1.2.1",
+    "compressorjs": "^1.2.1",
     "firebase": "^10.5.2",
     "next": "^13.5.6",
     "react": "^18.2.0",
