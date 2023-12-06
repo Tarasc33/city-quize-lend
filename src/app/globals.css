@@ -64,6 +64,7 @@ a {
 }
 
 .pointerCircle {
+  r: 2px;
   fill: var(--red);
   stroke-linecap: square;
   stroke-linejoin: bevel;
@@ -121,7 +122,9 @@ a {
 /* Карта */
 
 /* Builder */
+.stepper-wrapper {
 
+}
 .stepper-wrapper * {
   box-sizing: border-box;
 }
