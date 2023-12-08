@@ -4,6 +4,8 @@ import {child, get, ref, update} from "firebase/database"
 import {db} from "../../src/components/db/firebase"
 import '../../src/app/globals.css'
 import Quiz from 'react-quiz-component'
+import bg from '../../public/ua.jpg'
+import Image from "next/image";
 
 // const renderCustomResultPage = (obj) => {
 //   console.log(obj);
@@ -67,7 +69,13 @@ const Id = () => {
   }
 
   return (
-    <>
+    // <div style={{
+    //   backgroundImage: `url(${bg.src})`,
+    //   backgroundRepeat: 'no-repeat',
+    //   backgroundSize: 'contain'
+    // }}>
+    <div>
+      <Image className="quiz-img" src="/ua.jpg" fill alt=""/>
     {itemQuest && itemQuest.questions ?
       <Quiz
         quiz={itemQuest}
@@ -78,7 +86,7 @@ const Id = () => {
         onComplete={setQuizResult}
       />
       : null}
-    </>
+    </div>
   )
 }
 
