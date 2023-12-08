@@ -339,9 +339,20 @@ a {
 
 /*Quiz*/
 
+.quiz-img {
+  opacity: 0.6;
+}
+
 .react-quiz-container {
-  margin: 80px auto 50px auto!important;
-  height: 100%;
+  z-index: 100!important;
+  position: absolute!important;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 20px;
+  margin: 0!important;
+  background-color: rgba(230, 183, 64, 0.69);
+  padding: 20px;
+  border-radius: 17px;
 }
 
 .react-quiz-container .number-of-selection, .react-quiz-container .selection-tag.single {
