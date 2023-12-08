@@ -47,17 +47,17 @@ const Dashboard = () => {
   }, [router.isReady, router.query.form])
 
   return (
-    <>
+    <div className='dashboard'>
       <nav className='dashboard-nav'>
         <ul className='dashboard-ul'>
           <li className='dashboard-li-main'><Link href="/">Головна</Link></li>
           <li className='dashboard-li-quest'><Link href={`/auth/login`}>+Створити квест</Link></li>
         </ul>
       </nav>
-      <div>
-       <Link href={'/'}>Повернутись до карти</Link><h2>Квести: <span>{router.query.data} region</span></h2>
-      </div>
       <div className="dashboard-content">
+      <div className='region'>
+       <h2>{router.query.data} region</h2>
+      </div>
       <div className="dashboard-map">
         {regions.map((item, index) => {
           switch (router.query.data) {
@@ -82,7 +82,7 @@ const Dashboard = () => {
           {dataRegion.map((item, index) => {
             const time = new Date(item.time).toLocaleDateString("en-US")
             return (
-              <Link
+              <Link className='dashboard-card'
                 key={index}
                 href={`/quest/${item.id}?data=${router.query.data}`}
                 target="_blank"
@@ -95,7 +95,7 @@ const Dashboard = () => {
                 <p>{time}</p>
                 <p>{item.userName}</p>
                 <p>Пройдено: {item.completeQuizCount}</p>
-                <button>Пройти тест+</button>
+                <button>Пройти тест</button>
                 <a>
                   <span>{item.like}</span>
                   <Image
@@ -120,7 +120,7 @@ const Dashboard = () => {
         </div>
       )}
       </div>
-    </>
+    </div>
   )
 }
 
