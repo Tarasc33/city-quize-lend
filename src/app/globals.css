@@ -361,7 +361,7 @@ a {
   background-color: #f7f7f7;
 }
 
-.dashboard-li-quest{
+.dashboard-li-quest a{
   background-color: yellow;
   border-radius: 16px;
   width: 160px;
@@ -370,9 +370,14 @@ a {
   border: 1px solid #333333;
   list-style-type: none;
   padding: 10px 20px;
+  list-style: none;
 }
 
-.dashboard-li-main{
+.dashboard-li-quest{
+  list-style: none;
+}
+
+.dashboard-li-main a{
   background-color: yellow;
   border-radius: 16px;
   width: 95px;
@@ -381,14 +386,11 @@ a {
   border: 1px solid #333333;
   list-style-type: none;
   padding: 10px 20px;
+  list-style: none;
 }
 
-.dashboard-li-main a{
-  text-decoration: none;
-}
-
-.dashboard-li-quest a{
-  text-decoration: none;
+.dashboard-li-main{
+  list-style: none;
 }
 
 .dashboard-li-main:hover{
