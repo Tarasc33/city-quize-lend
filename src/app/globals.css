@@ -372,7 +372,7 @@ a {
   background-color: #f7f7f7;
 }
 
-.dashboard-li-quest{
+.dashboard-li-quest a{
   background-color: yellow;
   border-radius: 16px;
   width: 160px;
@@ -381,9 +381,14 @@ a {
   border: 1px solid #333333;
   list-style-type: none;
   padding: 10px 20px;
+  list-style: none;
 }
 
-.dashboard-li-main{
+.dashboard-li-quest{
+  list-style: none;
+}
+
+.dashboard-li-main a{
   background-color: yellow;
   border-radius: 16px;
   width: 95px;
@@ -392,14 +397,11 @@ a {
   border: 1px solid #333333;
   list-style-type: none;
   padding: 10px 20px;
+  list-style: none;
 }
 
-.dashboard-li-main a{
-  text-decoration: none;
-}
-
-.dashboard-li-quest a{
-  text-decoration: none;
+.dashboard-li-main{
+  list-style: none;
 }
 
 .dashboard-li-main:hover{
@@ -433,6 +435,13 @@ a {
   font-size: 15px;
   background-color: yellow;
   padding: 10px 5px;
+  border: none;
+}
+
+.quests-dashboard button:hover{
+ cursor: pointer;
+ box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+
 }
 
 .quests-dashboard a {
@@ -453,6 +462,7 @@ a {
   padding: 20px;
   margin: 10px 20px;
   border-radius: 17px;
+  color: rgb(0, 0, 0);
 }
 
 .dashboard-card:hover {
