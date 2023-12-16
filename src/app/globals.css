@@ -361,18 +361,18 @@ a {
 
 /*Quiz*/
 
-.dashboard {
+.dashboard, .builder {
   background-color: white;
 }
 
-.dashboard-nav {
+.dashboard-nav, .builder-nav{
   padding: 20px 30px;
   box-shadow: 2px 5px 5px rgba(0,0,0,0.16);
   margin-bottom: 20px;
   background-color: #f7f7f7;
 }
 
-.dashboard-li-quest a{
+.dashboard-li-quest a, .builder-li-main a, .builder-li-builder a{
   background-color: yellow;
   border-radius: 16px;
   width: 160px;
@@ -388,7 +388,7 @@ a {
   list-style: none;
 }
 
-.dashboard-li-main a{
+.dashboard-li-main a, .builder-li-profile a, .builder-li-exit button {
   background-color: yellow;
   border-radius: 16px;
   width: 95px;
@@ -400,7 +400,7 @@ a {
   list-style: none;
 }
 
-.dashboard-li-main{
+.dashboard-li-main, .builder-ul li{
   list-style: none;
 }
 
@@ -414,7 +414,7 @@ a {
   cursor: pointer;
 }
 
-.dashboard-ul{
+.dashboard-ul, .builder-ul{
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -423,7 +423,7 @@ a {
 }
 
 
-.quests-dashboard {
+.quests-dashboard{
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
