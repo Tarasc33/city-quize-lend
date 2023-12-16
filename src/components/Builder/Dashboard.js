@@ -124,7 +124,7 @@ const Board = (props) => {
         time: serverTimestamp(),
         status: false,
         like: values.like,
-        questionPic: values.questionPic,
+        questionPic: values.questionPic || '',
         reports: values.reports,
         questions: values.questions,
         quizTitle: values.quizTitle,
