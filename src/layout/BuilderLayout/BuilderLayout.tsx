@@ -8,25 +8,27 @@ const BuilderLayout = ({ children }) => {
   const router = useRouter()
 
   return (
-    <div>
-      <nav >
-        <ul>
-          <li><Link href="/">Головна</Link></li>
-          <li><Link href="/builder">Конструктор</Link></li>
-          <li>
+    <div className="builder">
+      <nav className="builder-nav">
+        <ul className="builder-ul">
+          <li className="builder-li-main"><Link href="/">Головна</Link></li>
+          <li className="builder-li-builder"><Link href="/builder">Конструктор</Link></li>
+          <li className="builder-li-profile">
             <Link href="/builder/settings">{contextValue.authObj.isAuthenticated ? contextValue.authObj.userName : null}</Link>
           </li>
-          <li><button onClick={()=> {
-            contextValue.setAuthObject(prevState => ({
-              ...prevState,
-              isAuthenticated: false,
-              userName: '',
-              userId: '',
-              email: '',
-              token: ''
-            }))
-            router.push('/')
-          }}>Log out</button></li>
+          <li className="builder-li-exit">
+            <button onClick={()=> {
+              contextValue.setAuthObject(prevState => ({
+                ...prevState,
+                isAuthenticated: false,
+                userName: '',
+                userId: '',
+                email: '',
+                token: ''
+              }))
+              router.push('/')
+            }}>Log out</button>
+          </li>
         </ul>
       </nav>
       {children}
