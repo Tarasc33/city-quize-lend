@@ -5,16 +5,8 @@ import {db} from "../../src/components/db/firebase"
 import '../../src/app/globals.css'
 import Quiz from 'react-quiz-component'
 import bg from '../../public/ua.jpg'
-import Image from "next/image";
-
-// const renderCustomResultPage = (obj) => {
-//   console.log(obj);
-//   return (
-//     <div>
-//       This is a custom result page. You can use obj to render your custom result page
-//     </div>
-//   )
-// }
+import Image from "next/image"
+import {FacebookShareButton, FacebookIcon} from 'next-share'
 
 
 const Id = () => {
@@ -23,6 +15,8 @@ const Id = () => {
   const tasksRef = ref(db)
   const [itemQuest, setItemQuest] = useState([])
   const [loading, setLoadingDb] = useState(false)
+  const [result, setResult] = useState(null)
+  console.log(result, 'result')
 
   useEffect(() => {
     const getFormApp = async (regionItemId) => {
@@ -57,12 +51,29 @@ const Id = () => {
       const dbRef = ref(db, `regions/${itemQuest.regionName}/${itemQuest.id}`)
       update(dbRef, {completeQuizCount: itemQuest.completeQuizCount + 1}).then(() => {
         console.log('complete regions')
-      }).then(() => {
+        setResult(obj)
       }).catch((err) => {
         console.log(err)
       })
     }
   }
+
+  // const renderCustomResultPage = (obj) => {
+  //   console.log(obj)
+  //   debugger
+  //   return (
+  //     <div>
+  //       <h1>11111</h1>
+  //       <FacebookShareButton
+  //         url={'https://github.com/next-share'}
+  //         quote={'next-share is a social share buttons for your next React apps.'}
+  //         hashtag={'#nextshare'}
+  //       >
+  //         <FacebookIcon size={32} round />
+  //       </FacebookShareButton>
+  //     </div>
+  //   )
+  // }
 
   return (
     // <div style={{
@@ -71,17 +82,41 @@ const Id = () => {
     //   backgroundSize: 'contain'
     // }}>
     <div>
-    {loading ? <p className='loader'>Завантаження...</p> : <Image className="quiz-img" src="/ua.jpg" fill alt=""/>}
+    {/*{loading ? <p className='loader'>Завантаження...</p> : <Image className="quiz-img" src="/ua.jpg" fill alt=""/>}*/}
     {itemQuest && itemQuest.questions ?
       <Quiz
         quiz={itemQuest}
         shuffle={true}
         shuffleAnswer={true}
-        showDefaultResult={true}
-        //renderCustomResultPage={renderCustomResultPage}
+        showDefaultResult={false}
+        showInstantFeedback={true}
         onComplete={setQuizResult}
+        //renderCustomResultPage={renderCustomResultPage}
       />
       : null}
+      {result ? (
+        <div>
+          <div>
+            <h2>Ви пройшли тест!</h2>
+            <h3></h3>
+            <div>
+              <h3>Бали:<span>{result.correctPoints}/{result.totalPoints}</span></h3>
+              <span>Вірно: {result.numberOfCorrectAnswers} з {result.numberOfQuestions}</span>
+              <h3></h3>
+            </div>
+            <h3>Поділися результатом з друзями!</h3>
+            <div>
+              <FacebookShareButton
+                url={'https://uaquiz.vercel.app/'}
+                children={`Пройдено квест ${itemQuest.quizTitle}. Результат: ${result.correctPoints}/${result.totalPoints} Вірно: ${result.numberOfCorrectAnswers} з ${result.numberOfQuestions} запитань`}
+                hashtag={`#${itemQuest.regionName}`}
+              >
+                <FacebookIcon size={32} round />
+              </FacebookShareButton>
+            </div>
+          </div>
+        </div>)
+        : null}
     </div>
   )
 }
