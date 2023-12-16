@@ -12,7 +12,6 @@ export default function RootLayout({ children }) {
         <link rel="preconnect" href="https://fonts.googleapis.com"/>
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"/>
-        <meta property="og:image" content="https://www.mapsland.com/maps/europe/ukraine/large-detailed-tourist-map-of-ukraine.jpg" />
       </head>
       <body suppressHydrationWarning={true}>{children}</body>
     </html>
