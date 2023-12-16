@@ -5,6 +5,7 @@ import {db} from "../../src/components/db/firebase"
 import {useContext} from "react"
 import {ThemeContext, QuizObjectContext} from "../_app"
 import {useRouter} from "next/router"
+import Link from "next/link";
 
 const Settings = () => {
   const tasksRef = ref(db)
@@ -71,18 +72,18 @@ const Settings = () => {
                     <p>{time}</p>
                     <p>{item.userName}</p>
                   </div>
-                  <button onClick={() => {
-                    const regiondbRef = ref(db, `regions/${item.regionName}/${item.id}`)
-                    const dbRef = ref(db, `users/${contextValue.authObj.userId}/${item.id}`)
-                    remove(dbRef).then(() => dataUserQuiz())
-                    remove(regiondbRef).then(() => console.log("Deleted"))
-                  }}>x
-                  </button>
+                  <Link target="_blank" href={`/quest/${item.id}?data=${item.regionName}`}>Перегянути</Link>
                   <button onClick={() => {
                     fetchDataById(item.regionName, item.id)
                   }}>
                     Редагувати
                   </button>
+                  <button onClick={() => {
+                    const regiondbRef = ref(db, `regions/${item.regionName}/${item.id}`)
+                    const dbRef = ref(db, `users/${contextValue.authObj.userId}/${item.id}`)
+                    remove(dbRef).then(() => dataUserQuiz())
+                    remove(regiondbRef).then(() => console.log("Deleted"))
+                  }}>x</button>
                 </>
               )
             })}

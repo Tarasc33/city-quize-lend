@@ -121,12 +121,14 @@ const Education = ({addEducationItem, updateEducationItem, removeEducationItem, 
                     <p>Номер правильної відповіді: {item.correctAnswer}</p>
                     <h4>Пояснення до відповіді: {item.explanation}</h4>
                     <h4>Кількість балів: {item.point}</h4>
-                    <img
-                      width='100'
-                      height='100'
-                      src={item.questionPic}
-                      alt=""
-                    />
+                    {item.questionPic ?
+                      <img
+                        width='100'
+                        height='100'
+                        src={item.questionPic}
+                        alt=""
+                      /> : null
+                    }
                   </div>
                   <button type="button" onClick={() => {
                     setOpenModal(!openModal)
@@ -233,12 +235,14 @@ const Education = ({addEducationItem, updateEducationItem, removeEducationItem, 
           <label htmlFor="fotoUploader">
             <p>Додати картинку</p>
           </label>
-          <img
-            width='100'
-            height='100'
-            src={imagesPreviewUrls || ''}
-            alt=""
-          />
+          {imagesPreviewUrls || dataInput.questionPic ?
+            <img
+              width='100'
+              height='100'
+              src={imagesPreviewUrls || dataInput.questionPic || ''}
+              alt=""
+            /> : null
+          }
         </div>
         <button
           className="btn btn-continue"
