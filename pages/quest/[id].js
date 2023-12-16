@@ -6,8 +6,10 @@ import '../../src/app/globals.css'
 import Quiz from 'react-quiz-component'
 import bg from '../../public/ua.jpg'
 import Image from "next/image"
-import {FacebookShareButton, FacebookIcon, TwitterShareButton, TwitterIcon} from 'next-share'
-
+import {FacebookShareButton, FacebookIcon,
+  TwitterShareButton, TwitterIcon, TelegramShareButton,
+  TelegramIcon, ViberShareButton, ViberIcon, WhatsappShareButton,
+  WhatsappIcon, LinkedinShareButton, LinkedinIcon, EmailShareButton, EmailIcon} from 'next-share'
 
 const Id = () => {
   const router = useRouter()
@@ -119,6 +121,37 @@ const Id = () => {
               >
                 <TwitterIcon size={32} round />
               </TwitterShareButton>
+              <TelegramShareButton
+                url={'https://uaquiz.vercel.app'}
+                children={titleResult}
+              >
+                <TelegramIcon size={32} round />
+              </TelegramShareButton>
+              <ViberShareButton
+                url={'https://uaquiz.vercel.app'}
+                children={titleResult}
+              >
+                <ViberIcon size={32} round />
+              </ViberShareButton>
+              <WhatsappShareButton
+                url={'https://uaquiz.vercel.app'}
+                children={titleResult}
+                separator=":: "
+              >
+                <WhatsappIcon size={32} round />
+              </WhatsappShareButton>
+              <LinkedinShareButton
+                url={'https://uaquiz.vercel.app'}
+              >
+                <LinkedinIcon size={32} round />
+              </LinkedinShareButton>
+              <EmailShareButton
+                url={'https://uaquiz.vercel.app'}
+                subject={titleResult}
+                body="body"
+              >
+                <EmailIcon size={32} round />
+              </EmailShareButton>
             </div>
           </div>
         </div>)
