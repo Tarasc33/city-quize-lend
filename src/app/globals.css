@@ -382,6 +382,8 @@ a {
   list-style-type: none;
   padding: 10px 20px;
   list-style: none;
+  cursor: pointer;
+
 }
 
 .dashboard-li-quest{
@@ -398,6 +400,7 @@ a {
   list-style-type: none;
   padding: 10px 20px;
   list-style: none;
+  cursor: pointer;
 }
 
 .dashboard-li-main, .builder-ul li{
@@ -420,6 +423,7 @@ a {
   justify-content: space-between;
   padding: 0;
   margin: 0;
+  align-items: baseline;
 }
 
 
