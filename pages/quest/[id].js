@@ -6,8 +6,10 @@ import '../../src/app/globals.css'
 import Quiz from 'react-quiz-component'
 import bg from '../../public/ua.jpg'
 import Image from "next/image"
-import {FacebookShareButton, FacebookIcon} from 'next-share'
-
+import {FacebookShareButton, FacebookIcon,
+  TwitterShareButton, TwitterIcon, TelegramShareButton,
+  TelegramIcon, ViberShareButton, ViberIcon, WhatsappShareButton,
+  WhatsappIcon, LinkedinShareButton, LinkedinIcon, EmailShareButton, EmailIcon} from 'next-share'
 
 const Id = () => {
   const router = useRouter()
@@ -74,6 +76,7 @@ const Id = () => {
   //     </div>
   //   )
   // }
+  const titleResult = `Пройдено квест ${itemQuest.quizTitle}. Результат: ${result?.correctPoints}/${result?.totalPoints} Вірно: ${result?.numberOfCorrectAnswers} з ${result?.numberOfQuestions} запитань`
 
   return (
     // <div style={{
@@ -102,17 +105,53 @@ const Id = () => {
             <div>
               <h3>Бали:<span>{result.correctPoints}/{result.totalPoints}</span></h3>
               <span>Вірно: {result.numberOfCorrectAnswers} з {result.numberOfQuestions}</span>
-              <h3></h3>
             </div>
-            <h3>Поділися результатом з друзями!</h3>
+            <h3>Поділися з друзями!</h3>
             <div>
               <FacebookShareButton
-                url={'https://uaquiz.vercel.app/'}
-                children={`Пройдено квест ${itemQuest.quizTitle}. Результат: ${result.correctPoints}/${result.totalPoints} Вірно: ${result.numberOfCorrectAnswers} з ${result.numberOfQuestions} запитань`}
+                url={'https://uaquiz.vercel.app'}
+                children={titleResult}
                 hashtag={`#${itemQuest.regionName}`}
               >
                 <FacebookIcon size={32} round />
               </FacebookShareButton>
+              <TwitterShareButton
+                url={'https://uaquiz.vercel.app'}
+                children={titleResult}
+              >
+                <TwitterIcon size={32} round />
+              </TwitterShareButton>
+              <TelegramShareButton
+                url={'https://uaquiz.vercel.app'}
+                children={titleResult}
+              >
+                <TelegramIcon size={32} round />
+              </TelegramShareButton>
+              <ViberShareButton
+                url={'https://uaquiz.vercel.app'}
+                children={titleResult}
+              >
+                <ViberIcon size={32} round />
+              </ViberShareButton>
+              <WhatsappShareButton
+                url={'https://uaquiz.vercel.app'}
+                children={titleResult}
+                separator=":: "
+              >
+                <WhatsappIcon size={32} round />
+              </WhatsappShareButton>
+              <LinkedinShareButton
+                url={'https://uaquiz.vercel.app'}
+              >
+                <LinkedinIcon size={32} round />
+              </LinkedinShareButton>
+              <EmailShareButton
+                url={'https://uaquiz.vercel.app'}
+                subject={titleResult}
+                body="body"
+              >
+                <EmailIcon size={32} round />
+              </EmailShareButton>
             </div>
           </div>
         </div>)
