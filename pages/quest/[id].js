@@ -85,7 +85,7 @@ const Id = () => {
     //   backgroundSize: 'contain'
     // }}>
     <div>
-    {/*{loading ? <p className='loader'>Завантаження...</p> : <Image className="quiz-img" src="/ua.jpg" fill alt=""/>}*/}
+    {loading ? <p className='loader'>Завантаження...</p> : null}
     {itemQuest && itemQuest.questions ?
       <Quiz
         quiz={itemQuest}
@@ -94,14 +94,24 @@ const Id = () => {
         showDefaultResult={false}
         showInstantFeedback={true}
         onComplete={setQuizResult}
-        //renderCustomResultPage={renderCustomResultPage}
       />
       : null}
       {result ? (
-        <div>
-          <div>
+        <div style={{
+            backgroundColor: `rgba(230, 183, 64, 0.69)`,
+            height: '100vh',
+            width: '100%',
+            margin: '0 auto'
+          }}>
+          <div
+            style={{
+              maxWidth: '500px',
+              margin: '0 auto',
+              zIndex: '100'
+            }}
+          >
             <h2>Ви пройшли тест!</h2>
-            <h3></h3>
+            <h3>{itemQuest.quizTitle}</h3>
             <div>
               <h3>Бали:<span>{result.correctPoints}/{result.totalPoints}</span></h3>
               <span>Вірно: {result.numberOfCorrectAnswers} з {result.numberOfQuestions}</span>
