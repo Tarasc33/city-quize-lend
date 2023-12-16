@@ -101,6 +101,7 @@ const Builder = ({content, submit, values, loading}) => {
   return (
     <div className="user-form">
       <div className="w-100">
+        <h2>Створення квесту</h2>
         <div className="stepper-wrapper">
           <StepIndicator
             content={content}

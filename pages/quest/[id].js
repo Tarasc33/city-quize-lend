@@ -64,10 +64,6 @@ const Id = () => {
     }
   }
 
-  if (loading) {
-    return <p className='loader'>Завантаження...</p>
-  }
-
   return (
     // <div style={{
     //   backgroundImage: `url(${bg.src})`,
@@ -75,7 +71,7 @@ const Id = () => {
     //   backgroundSize: 'contain'
     // }}>
     <div>
-      <Image className="quiz-img" src="/ua.jpg" fill alt=""/>
+    {loading ? <p className='loader'>Завантаження...</p> : <Image className="quiz-img" src="/ua.jpg" fill alt=""/>}
     {itemQuest && itemQuest.questions ?
       <Quiz
         quiz={itemQuest}
