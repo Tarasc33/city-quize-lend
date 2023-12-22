@@ -14,7 +14,7 @@ const BuilderLayout = ({ children }) => {
           <li className="builder-li-main"><Link href="/">Головна</Link></li>
           <li className="builder-li-builder"><Link href="/builder">Конструктор</Link></li>
           <li className="builder-li-profile">
-            <Link href="/builder/settings">{contextValue.authObj.isAuthenticated ? contextValue.authObj.userName : null}</Link>
+            <Link href="/builder/settings">Налаштування</Link>
           </li>
           <li className="builder-li-exit">
             <button onClick={()=> {
