@@ -88,7 +88,7 @@ a {
 }
 
 
-#Kiev:hover ~.cityKiev,
+#Kyiv:hover ~.cityKyiv,
 #KyivCity:hover ~.cityKiev,
 #SevastopolCity:hover ~.citySevastopol,
 #Crimea:hover ~.citySimferopol,
@@ -334,7 +334,7 @@ a {
   background: rgba(0,0,0,0);
   cursor: pointer;
 }
- 
+
 /*Login*/
 
 /*Quiz*/
@@ -379,13 +379,22 @@ a {
   font-size: 15px;
   transition: all 0.5s ease;
   border: 1px solid #333333;
-  list-style-type: none;
   padding: 10px 20px;
   list-style: none;
 }
 
 .dashboard-li-quest{
   list-style: none;
+}
+
+.cart-color-second {
+  color: #26262882;
+}
+
+.dashboard-li-quest a{
+  background-color: #e6b740;
+  color: #333333;
+  font-weight: bold;
 }
 
 .dashboard-li-main a, .builder-li-profile a, .builder-li-exit button {
@@ -395,7 +404,6 @@ a {
   font-size: 15px;
   transition: all 0.5s ease;
   border: 1px solid #333333;
-  list-style-type: none;
   padding: 10px 20px;
   list-style: none;
 }
@@ -430,12 +438,24 @@ a {
   width: 100%;
 }
 
+.dashboard-card h3{
+  font-size: 16px;
+}
+
+.dashboard-card .description{
+  font-size: 14px;
+}
+
+.dashboard-card .cart-color-second {
+  font-size: 12px;
+}
+
 .quests-dashboard button{
   border-radius: 10px;
   font-size: 15px;
   background-color: yellow;
-  padding: 10px 5px;
-  border: none;
+  padding: 10px 20px;
+  border: 0.5px solid #333333;
 }
 
 .quests-dashboard button:hover{
@@ -446,14 +466,17 @@ a {
 
 .quests-dashboard a {
   display: block;
-  max-width: 500px;
+  max-width: 45%;
+}
+
+@media (max-width: 992px) {
+  .quests-dashboard a {
+    max-width: 100%;
+  }
 }
 
 .dashboard-map div {
   margin: 40px auto;
-  padding: 40px 0;
-
-
 }
 
 .dashboard-card {
@@ -463,10 +486,17 @@ a {
   margin: 10px 20px;
   border-radius: 17px;
   color: rgb(0, 0, 0);
+  min-width: 45%;
+}
+
+@media (max-width: 992px) {
+  .dashboard-card {
+    max-width: 100%;
+  }
 }
 
 .dashboard-card:hover {
-  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  box-shadow: 0 2px 2px rgba(0,0,0,0.25), 0 2px 2px rgba(0,0,0,0.22);
 }
 
 .region{

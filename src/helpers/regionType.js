@@ -9,7 +9,7 @@ export const regions = [
   'Kharkiv',
   'Kherson',
   'Khmelnytskyi',
-  'Kiev',
+  'Kyiv',
   'KyivCity',
   'Kirovohrad',
   'Luhansk',
