@@ -8,6 +8,8 @@ import {useContext} from "react"
 import {RegionContext} from "./_app"
 import Image from "next/image"
 import {regions} from '../src/helpers/regionType'
+import "@fancyapps/ui/dist/fancybox/fancybox.css"
+import Fancybox from "../src/helpers/map"
 
 const Dashboard = () => {
   const tasksRef = ref(db)
@@ -63,14 +65,24 @@ const Dashboard = () => {
             switch (router.query.data) {
               case item:
                 return (
-                  <div key={index} style={{width: '500px', height: '600px', position: 'relative'}}>
-                    <Image
-                      src={`/region-map/${router.query.data}.jpeg`}
-                      layout="fill"
-                      objectFit="contain"
-                      alt=""
-                    />
-                  </div>
+                  <Fancybox
+                    options={{
+                      Carousel: {
+                        infinite: false,
+                      },
+                    }}
+                  >
+                    <a data-fancybox="gallery" href={`/region-map/${router.query.data}.jpeg`}>
+                      <div key={index} style={{width: '500px', height: '600px', position: 'relative'}}>
+                        <Image
+                          src={`/region-map/${router.query.data}.jpeg`}
+                          layout="fill"
+                          objectFit="contain"
+                          alt=""
+                        />
+                      </div>
+                    </a>
+                  </Fancybox>
                 )
               default:
                 break
