@@ -301,6 +301,37 @@ a {
   background-color: rgba(0, 0, 0, 0.12);
   cursor: not-allowed;
 }
+.stepper-wrapper form{
+  margin-left: 40px;
+  margin-right: 40px;
+}
+.btn-transparent{
+  background-color: grey;
+  border-radius: 16px;
+  width: 160px;
+  font-size: 15px;
+  transition: all 0.5s ease;
+  border: 1px solid #333333;
+  padding: 10px 20px;
+  list-style: none;
+  margin: 0 auto;
+  display: block;
+}
+.btn.stepper-footer-btn.btn-continue{
+  background-color: yellow;
+  border-radius: 16px;
+  width: 160px;
+  font-size: 15px;
+  transition: all 0.5s ease;
+  border: 1px solid #333333;
+  padding: 10px 20px;
+  list-style: none;
+  margin: 0 auto;
+  display: block;
+}
+.stepper-footer.form-btn-block{
+  display: flex;
+}
 
 /* Builder */
 

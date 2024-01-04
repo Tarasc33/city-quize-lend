@@ -52,7 +52,7 @@ const StepIndicator = props => (
 
 const Navigation = props => {
   return (
-    <div className="stepper-footer form-btn-block">
+    <div className="stepper-footer.form-btn-block">
       <button
         className="btn-transparent"
         onClick={props.previousStepHandler}
@@ -60,8 +60,7 @@ const Navigation = props => {
       >
         Назад
       </button>
-      <button
-        className="btn stepper-footer-btn btn-continue"
+      <button className="btn stepper-footer-btn btn-continue"
         type="submit"
         disabled={props?.isLastStep ? props.values?.questions?.length === 0 : !props.values?.quizTitle}
         onClick={(e) => (
