@@ -334,7 +334,7 @@ a {
   background: rgba(0,0,0,0);
   cursor: pointer;
 }
- 
+
 /*Login*/
 
 /*Quiz*/
@@ -477,7 +477,7 @@ a {
 /* form */
 
 
-.form-textarea, .label, .form-input{
+.form-textarea, .form-input{
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
