@@ -44,7 +44,7 @@ const Settings = () => {
         console.log("No data available")
       }
     }).then(() => {
-        router.push(`/builder?data=edit`)
+      router.push(`/builder?data=edit`)
     }).catch((err) => {
       console.error(err)
     })
@@ -63,14 +63,14 @@ const Settings = () => {
             {userQuize.map((item, index) => {
               const time = new Date(item.time).toLocaleDateString("en-US")
               return (
-                <>
+                <div>
                   <div key={index}>
-                    <h3>
-                      {item.quizTitle}
-                    </h3>
-                    <p>{item.quizSynopsis}</p>
-                    <p>{time}</p>
-                    <p>{item.userName}</p>
+                    <div style={{display: "flex"}}>
+                      Назва: <h3>{item.quizTitle}</h3>
+                    </div>
+                    <p>Опис: {item.quizSynopsis}</p>
+                    <p>Дата: {time}</p>
+                    <p>Регіон: {item.regionName}</p>
                   </div>
                   <Link target="_blank" href={`/quest/${item.id}?data=${item.regionName}`}>Перегянути</Link>
                   <button onClick={() => {
@@ -83,8 +83,9 @@ const Settings = () => {
                     const dbRef = ref(db, `users/${contextValue.authObj.userId}/${item.id}`)
                     remove(dbRef).then(() => dataUserQuiz())
                     remove(regiondbRef).then(() => console.log("Deleted"))
-                  }}>x</button>
-                </>
+                  }}>x
+                  </button>
+                </div>
               )
             })}
           </div>

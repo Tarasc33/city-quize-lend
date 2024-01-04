@@ -1,3 +1,6 @@
+import {regions} from "../helpers/regionType"
+import {regionsTranslate} from "../helpers/regionTranslate"
+
 export const randomIntFromInterval = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1) + min)
 }
@@ -23,3 +26,15 @@ export const validation = (data) => {
     return ''
   }
 }
+
+
+export const translateRegionNameToUkrainian = (regionName) => {
+  const index = regions.indexOf(regionName)
+  if (index !== -1) {
+    return regionsTranslate[index]
+  } else {
+    return 'Translation Not Found'
+  }
+}
+
+

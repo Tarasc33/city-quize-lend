@@ -107,16 +107,19 @@ const Id = () => {
             style={{
               maxWidth: '500px',
               margin: '0 auto',
-              zIndex: '100'
+              zIndex: '100',
+              backgroundColor: 'rgba(230, 183, 64, 0.69)',
+              padding: '30px',
+              borderRadius: '17px'
             }}
           >
-            <h2>Ви пройшли тест!</h2>
-            <h3>{itemQuest.quizTitle}</h3>
-            <div>
-              <h3>Бали:<span>{result.correctPoints}/{result.totalPoints}</span></h3>
-              <span>Вірно: {result.numberOfCorrectAnswers} з {result.numberOfQuestions}</span>
+            <h2 style={{margin: '30px 0 20px 0'}}>Ви пройшли тест!</h2>
+            <h3 style={{marginBottom: '10px', fontWeight: "normal"}}>{itemQuest.quizTitle}</h3>
+            <div style={{marginBottom: '20px'}}>
+              <span style={{fontWeight: "bold", marginBottom: '10px'}}>{result.numberOfCorrectAnswers} з {result.numberOfQuestions} запитань</span>
+              <h3 style={{color: 'green'}}><span>{result.correctPoints} / {result.totalPoints}</span></h3>
             </div>
-            <h3>Поділися з друзями!</h3>
+            <div style={{marginBottom: '10px'}}>Поділися з друзями!</div>
             <div>
               <FacebookShareButton
                 url={'https://uaquiz.vercel.app'}

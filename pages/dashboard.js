@@ -8,6 +8,9 @@ import {useContext} from "react"
 import {RegionContext} from "./_app"
 import Image from "next/image"
 import {regions} from '../src/helpers/regionType'
+import "@fancyapps/ui/dist/fancybox/fancybox.css"
+import Fancybox from "../src/helpers/map"
+import {translateRegionNameToUkrainian} from "../src/helpers/functions"
 
 const Dashboard = () => {
   const tasksRef = ref(db)
@@ -50,75 +53,94 @@ const Dashboard = () => {
     <div className='dashboard'>
       <nav className='dashboard-nav'>
         <ul className='dashboard-ul'>
-          <li className='dashboard-li-main'><Link href="/">Головна</Link></li>
-          <li className='dashboard-li-quest'><Link href={`/auth/login`}>+Створити квест</Link></li>
+          <li className='dashboard-li-main'><Link href="/">Україна</Link></li>
+          <li className='dashboard-li-quest'><Link href={`/auth/login`}>+ Створити квест</Link></li>
         </ul>
       </nav>
       <div className="dashboard-content">
-      <div className='region'>
-       <h2>{router.query.data} region</h2>
-      </div>
-      <div className="dashboard-map">
-        {regions.map((item, index) => {
-          switch (router.query.data) {
-            case item:
-              return (
-                <div key={index} style={{ width: '500px', height: '700px', position: 'relative' }}>
-                  <Image
-                    src={`/region-map/${router.query.data}.jpeg`}
-                    layout="fill"
-                    objectFit="contain"
-                    alt=""
-                  />
-                </div>
-              )
-            default:
-              break
-          }
-          })}
-      </div>
-      {dataRegion.length === 0 && !loading ? <p>Квестів немає</p> : loading ? <p className='loader'>Завантаження...</p> : (
-        <div className='quests-dashboard'>
-          {dataRegion.map((item, index) => {
-            const time = new Date(item.time).toLocaleDateString("en-US")
-            return (
-              <Link className='dashboard-card'
-                key={index}
-                href={`/quest/${item.id}?data=${router.query.data}`}
-                target="_blank"
-                passHref
-              >
-                <h3>
-                  {item.quizTitle}
-                </h3>
-                <p>{item.quizSynopsis}</p>
-                <p>{time}</p>
-                <p>{item.userName}</p>
-                <p>Пройдено: {item.completeQuizCount}</p>
-                <button>Пройти тест</button>
-                <a>
-                  <span>{item.like}</span>
-                  <Image
-                    src='/love.svg'
-                    width='20'
-                    height='20'
-                    alt='like'
-                    onClick={(e) => {
-                      e.preventDefault()
-                      const dbRef = ref(db, `regions/${item.regionName}/${item.id}`)
-                      update(dbRef, {like: item.like + 1}).then(() => {
-                        getFormApp(item.regionName)
-                      }).catch((err) => {
-                        console.log(err)
-                      })
+        <div className='region'>
+          <h4>{translateRegionNameToUkrainian(router.query.data)} область</h4>
+        </div>
+        <div className="dashboard-map">
+          {regions.map((item, index) => {
+            switch (router.query.data) {
+              case item:
+                return (
+                  <Fancybox
+                    key={index}
+                    options={{
+                      Carousel: {
+                        infinite: false,
+                      },
                     }}
-                  />
-                </a>
-              </Link>
-            )
+                  >
+                    <a key={index} data-fancybox="gallery" href={`/region-map/${router.query.data}.jpeg`}>
+                      <div key={index} style={{width: '500px', height: '600px', position: 'relative'}}>
+                        <Image
+                          src={`/region-map/${router.query.data}.jpeg`}
+                          layout="fill"
+                          objectFit="contain"
+                          alt=""
+                        />
+                      </div>
+                    </a>
+                  </Fancybox>
+                )
+              default:
+                break
+            }
           })}
         </div>
-      )}
+        <h2 style={{marginLeft: '20px'}}>Квести, тести та вікторини</h2>
+        {dataRegion.length === 0 && !loading ?
+          <div className='loader' style={{display: "flex", flexDirection: "column"}}>
+            <p>Квестів, вікторин, тестів немає</p>
+            <div className='dashboard-li-quest'><Link href={`/auth/login`}>+ Створити квест</Link></div>
+          </div>
+          : loading ? <p className='loader'>Завантаження...</p> : (
+              <div className='quests-dashboard'>
+                {dataRegion.map((item, index) => {
+                  const time = new Date(item.time).toLocaleDateString("en-US")
+                  if (item.status) {
+                    return (
+                      <Link className='dashboard-card'
+                            key={index}
+                            href={`/quest/${item.id}?data=${router.query.data}`}
+                            target="_blank"
+                            passHref
+                      >
+                        <h3>
+                          {item.quizTitle}
+                        </h3>
+                        <p className="description">{item.quizSynopsis}</p>
+                        <p className="cart-color-second">Створено: {time}</p>
+                        <p className="cart-color-second">Автор: {item.userName}</p>
+                        <p className="cart-color-second">Пройдено: {item.completeQuizCount}</p>
+                        <button>Пройти тест</button>
+                        <a style={{display: "flex", alignItems: "center", marginTop: '10px'}}>
+                          <span className="cart-color-second">{item.like}</span>
+                          <Image
+                            src='/love.svg'
+                            width='20'
+                            height='20'
+                            alt='like'
+                            onClick={(e) => {
+                              e.preventDefault()
+                              const dbRef = ref(db, `regions/${item.regionName}/${item.id}`)
+                              update(dbRef, {like: item.like + 1}).then(() => {
+                                getFormApp(item.regionName)
+                              }).catch((err) => {
+                                console.log(err)
+                              })
+                            }}
+                          />
+                        </a>
+                      </Link>
+                    )
+                  }
+                })}
+              </div>
+          )}
       </div>
     </div>
   )
