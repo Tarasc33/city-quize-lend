@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@fancyapps/ui": "^5.0.32",
     "@frank-mayer/react-tag-cloud": "^1.2.1",
     "compressorjs": "^1.2.1",
     "firebase": "^10.5.2",
