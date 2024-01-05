@@ -75,7 +75,7 @@ const Dashboard = () => {
                     }}
                   >
                     <a key={index} data-fancybox="gallery" href={`/region-map/${router.query.data}.jpeg`}>
-                      <div key={index} style={{width: '500px', height: '600px', position: 'relative'}}>
+                      <div key={index} className="region-map-container">
                         <Image
                           src={`/region-map/${router.query.data}.jpeg`}
                           layout="fill"
