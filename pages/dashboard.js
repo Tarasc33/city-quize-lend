@@ -25,7 +25,7 @@ const Dashboard = () => {
       get(child(tasksRef, `regions/${regionNameId}`)).then((snapshot) => {
         if (snapshot.exists()) {
           const dataArray = Object.keys(snapshot.val() || {}).length > 0 ? Object.values(snapshot.val()) : []
-          setDataRegion(dataArray)
+          setDataRegion(dataArray.reverse())
           setLoadingDb(false)
         } else {
           console.log("No data available")

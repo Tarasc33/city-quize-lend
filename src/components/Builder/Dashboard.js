@@ -189,7 +189,7 @@ const Board = (props) => {
         set(ref(db, 'users/' + contextValue.authObj.userId + '/' + regionId), data).then(() => {
           setLoading(false)
           setValues(initialData)
-          showNotification("Ваш квест зараз розглядається нашою командою. Після схвалення воно буде опубліковане і доступне на карті.", 'success')
+          showNotification("Ваш квест зараз розглядається нашою командою. Після схвалення він буде опублікований і доступний на карті", 'success')
         })
       })
     }
