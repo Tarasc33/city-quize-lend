@@ -408,6 +408,10 @@ a {
   list-style: none;
 }
 
+.builder-li-exit button {
+  cursor: pointer;
+}
+
 .dashboard-li-main, .builder-ul li{
   list-style: none;
 }
@@ -426,10 +430,20 @@ a {
   width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 0;
   margin: 0;
 }
 
+@media (max-width: 700px) {
+  .dashboard-ul, .builder-ul {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .dashboard-li-main, .builder-ul li, .builder-li-main, .builder-li-builder, .builder-li-exit {
+    height: 50px;
+  }
+}
 
 .quests-dashboard{
   display: flex;
