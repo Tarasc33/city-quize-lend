@@ -27,7 +27,7 @@ const BuilderLayout = ({ children }) => {
                 token: ''
               }))
               router.push('/')
-            }}>Log out</button>
+            }}>Вихід</button>
           </li>
         </ul>
       </nav>
