@@ -67,11 +67,11 @@ const Settings = () => {
                   <div className='my-quest'>
                     <div key={index}>
                       <div style={{display: "flex"}}>
-                        Назва: <h3>{item.quizTitle}</h3>
+                        <h3>{item.quizTitle}</h3>
                       </div>
-                      <p>Опис: {item.quizSynopsis}</p>
-                      <p>Дата: {time}</p>
-                      <p>Регіон: {item.regionName}</p>
+                      <p>{item.quizSynopsis}</p>
+                      <p className="cart-color-second">Дата: {time}</p>
+                      <p className="cart-color-second">Регіон: {item.regionName}</p>
                     </div>
                     <div className="buttons-container">
                       <Link target="_blank" href={`/quest/${item.id}?data=${item.regionName}`}>Перегянути</Link>
