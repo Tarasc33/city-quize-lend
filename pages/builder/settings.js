@@ -58,36 +58,40 @@ const Settings = () => {
     <>
       {loading ? <p className='loader'>Завантаження...</p> : (
         <>
-          <h2>Мої квести</h2>
           <div>
-            {userQuize.map((item, index) => {
-              const time = new Date(item.time).toLocaleDateString("en-US")
-              return (
-                <div>
-                  <div key={index}>
-                    <div style={{display: "flex"}}>
-                      Назва: <h3>{item.quizTitle}</h3>
+            <h2 style={{margin: '30px 20px'}}>Мої квести</h2>
+            <div className='my-quest-container'>
+              {userQuize.map((item, index) => {
+                const time = new Date(item.time).toLocaleDateString("en-US")
+                return (
+                  <div className='my-quest'>
+                    <div key={index}>
+                      <div style={{display: "flex"}}>
+                        Назва: <h3>{item.quizTitle}</h3>
+                      </div>
+                      <p>Опис: {item.quizSynopsis}</p>
+                      <p>Дата: {time}</p>
+                      <p>Регіон: {item.regionName}</p>
                     </div>
-                    <p>Опис: {item.quizSynopsis}</p>
-                    <p>Дата: {time}</p>
-                    <p>Регіон: {item.regionName}</p>
+                    <div className="buttons-container">
+                      <Link target="_blank" href={`/quest/${item.id}?data=${item.regionName}`}>Перегянути</Link>
+                      <button  onClick={() => {
+                        fetchDataById(item.regionName, item.id)
+                      }}>
+                        Редагувати
+                      </button>
+                      <button className="delate" onClick={() => {
+                        const regiondbRef = ref(db, `regions/${item.regionName}/${item.id}`)
+                        const dbRef = ref(db, `users/${contextValue.authObj.userId}/${item.id}`)
+                        remove(dbRef).then(() => dataUserQuiz())
+                        remove(regiondbRef).then(() => console.log("Deleted"))
+                      }}>x
+                      </button>
+                    </div>
                   </div>
-                  <Link target="_blank" href={`/quest/${item.id}?data=${item.regionName}`}>Перегянути</Link>
-                  <button onClick={() => {
-                    fetchDataById(item.regionName, item.id)
-                  }}>
-                    Редагувати
-                  </button>
-                  <button onClick={() => {
-                    const regiondbRef = ref(db, `regions/${item.regionName}/${item.id}`)
-                    const dbRef = ref(db, `users/${contextValue.authObj.userId}/${item.id}`)
-                    remove(dbRef).then(() => dataUserQuiz())
-                    remove(regiondbRef).then(() => console.log("Deleted"))
-                  }}>x
-                  </button>
-                </div>
-              )
-            })}
+                )
+              })}
+            </div>
           </div>
         </>
       )}
