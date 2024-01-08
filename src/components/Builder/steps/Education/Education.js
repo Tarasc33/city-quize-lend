@@ -109,8 +109,8 @@ const Education = ({
     <div>
       {values?.questions?.length > 0 ?
         <>
-          <h4>Список запитань</h4>
-          <div className="my-quest-container">
+          <h3 style={{margin: '0 30px'}}>Список запитань:</h3>
+          <div className="my-quest-container" style={{margin: '30px 30px 30px 30px'}}>
             {values?.questions?.map((item, index) => {
                 return (
                   <div className="builder-question">
@@ -137,15 +137,17 @@ const Education = ({
                           alt=""
                         /> : null
                       }
-                      <button type="button" onClick={() => {
-                        setOpenModal(!openModal)
-                        setDataInput({...item, editing: true})
-                      }}>Редагувати
-                      </button>
-                      <button type="button" onClick={() => {
-                        removeEducationItem(index)
-                      }}>x
-                      </button>
+                      <div className="builder-question-button-container">
+                        <button type="button" onClick={() => {
+                          setOpenModal(!openModal)
+                          setDataInput({...item, editing: true})
+                          document.getElementById('builder-form').scrollIntoView();
+                        }}>Редагувати</button>
+                        <button type="button" onClick={() => {
+                          removeEducationItem(index)
+                        }}>x
+                        </button>
+                      </div>
                     </div>
                   </div>
                 )
@@ -155,13 +157,16 @@ const Education = ({
         </>
         : null
       }
-      <form onSubmit={(event) => {
-        event.preventDefault()
-        if (dataInput.editing) {
-          updateEducationItem({...dataInput, editing: false})
-        } else {
-          addEducationItem(dataInput)
-        }
+      <form
+        id="builder-form"
+        style={{paddingTop: '30px'}}
+        onSubmit={(event) => {
+          event.preventDefault()
+          if (dataInput.editing) {
+            updateEducationItem({...dataInput, editing: false})
+          } else {
+            addEducationItem(dataInput)
+          }
         setDataInput(initialProject)
         setImagesPreviewUrls('')
         setOpenModal(!openModal)
