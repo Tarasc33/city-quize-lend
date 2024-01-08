@@ -16,6 +16,7 @@ body {
   font-family: 'Roboto', sans-serif;
   color: var(--dark);
   background-color: white;
+  scroll-behavior: smooth;
 }
 
 /*Reset default style*/
@@ -625,5 +626,11 @@ a {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.builder-question-button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
 }
 
