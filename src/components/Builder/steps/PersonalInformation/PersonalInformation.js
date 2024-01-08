@@ -9,7 +9,6 @@ const PersonalInformation = ({values, setValues, errors}) => {
 
   return (
     <form>
-      <h4 className="form-section-title">Назва квесту</h4>
       <div className="block-two-row mobile center">
         <div>
           <Input
@@ -24,11 +23,11 @@ const PersonalInformation = ({values, setValues, errors}) => {
         </div>
       </div>
       <div>
-        <h4 className="form-section-title">Опис квесту</h4>
         <TextArea
           placeholder="Вкажіть інформацію про квест"
           name="quizSynopsis"
           type="text"
+          label="Опис квесту"
           value={values.quizSynopsis || ""}
           error={errors.quizSynopsis}
           handleChange={(event) => handleChange('quizSynopsis', event.target.value)}
