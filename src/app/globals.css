@@ -272,6 +272,7 @@ a {
   display: flex;
   align-items: center;
   padding-top: 10px;
+  justify-content: center;
 }
 .stepper-wrapper .stepper-footer-btn {
   color: rgba(0, 0, 0, 0.87);
@@ -328,9 +329,6 @@ a {
   list-style: none;
   margin: 0 auto;
   display: block;
-}
-.stepper-footer.form-btn-block{
-  display: flex;
 }
 
 /* Builder */
@@ -546,3 +544,34 @@ a {
   font-size: 16px;
   margin-bottom: 10px;
 }
+
+/* builder */
+
+.Variants button, .btn.btn-continue{
+  border-radius: 5px;
+  font-size: 15px;
+  background-color: yellow;
+  padding: 5px 10px;
+  border: 0.5px solid #333333;
+}
+
+/* setting */
+
+.my-quest{
+  display: block;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  padding: 20px;
+  margin: 10px 20px;
+  border-radius: 17px;
+  color: rgb(0, 0, 0);
+  min-width: 45%;
+}
+
+.my-quest button{
+  border-radius: 10px;
+  font-size: 15px;
+  background-color: yellow;
+  padding: 10px 20px;
+  border: 0.5px solid #333333;
+}
+

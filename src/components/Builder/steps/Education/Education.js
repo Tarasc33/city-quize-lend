@@ -169,7 +169,7 @@ const Education = ({addEducationItem, updateEducationItem, removeEducationItem, 
         <div className="block-two-row mobile">
           <div>
             <h4>Варіанти відповідей</h4>
-            <div>
+            <div className="Variants">
               <input
                 className="input"
                 type="text"
