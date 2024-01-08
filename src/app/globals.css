@@ -15,7 +15,7 @@
 body {
   font-family: 'Roboto', sans-serif;
   color: var(--dark);
-  background-color: var(--bg-color);
+  background-color: white;
 }
 
 /*Reset default style*/
@@ -398,7 +398,7 @@ a {
 /*Quiz*/
 
 .dashboard, .builder {
-  background-color: white;
+  margin-bottom: 50px;
 }
 
 .dashboard-nav, .builder-nav{
