@@ -52,7 +52,7 @@ const StepIndicator = props => (
 
 const Navigation = props => {
   return (
-    <div className="stepper-footer.form-btn-block">
+    <div className="stepper-footer form-btn-block">
       <button
         className="btn-transparent"
         onClick={props.previousStepHandler}

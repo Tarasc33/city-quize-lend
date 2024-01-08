@@ -7,7 +7,15 @@ import {ref, getDownloadURL, getStorage, uploadBytes} from "firebase/storage"
 import {RegionContext, ThemeContext} from "../../../../../pages/_app"
 
 
-const Education = ({addEducationItem, updateEducationItem, removeEducationItem, errors, validate, values, setValues}) => {
+const Education = ({
+                     addEducationItem,
+                     updateEducationItem,
+                     removeEducationItem,
+                     errors,
+                     validate,
+                     values,
+                     setValues
+                   }) => {
 
   const initialProject = {
     id: uuid(),
@@ -69,8 +77,7 @@ const Education = ({addEducationItem, updateEducationItem, removeEducationItem, 
     const createObjectURL = (file) => {
       if (window.webkitURL) {
         return window.webkitURL.createObjectURL(file)
-      }
-      else if (window.URL && window.URL.createObjectURL) {
+      } else if (window.URL && window.URL.createObjectURL) {
         return window.URL.createObjectURL(file)
       }
     }
@@ -101,45 +108,52 @@ const Education = ({addEducationItem, updateEducationItem, removeEducationItem, 
   return (
     <div>
       {values?.questions?.length > 0 ?
-        <div>
+        <>
           <h4>Список запитань</h4>
-          {values?.questions?.map((item, index) => {
-              return (
-                <>
-                  <div key={index}>
-                    <h4>Запитання: {item.question}</h4>
-                    <div>
-                      <h5>Варіанти відповідей</h5>
-                      {item?.answers.map((item, index) => {
-                        return (
-                          <ul key={index}>
-                            <li>{item}</li>
-                          </ul>
-                        )
-                      })}
+          <div className="my-quest-container">
+            {values?.questions?.map((item, index) => {
+                return (
+                  <div className="builder-question">
+                    <div key={index}>
+                      <h4>Запитання: {item.question}</h4>
+                      <div>
+                        <h5>Варіанти відповідей</h5>
+                        {item?.answers.map((item, index) => {
+                          return (
+                            <ul key={index}>
+                              <li>{item}</li>
+                            </ul>
+                          )
+                        })}
+                      </div>
+                      <p>Номер правильної відповіді: {item.correctAnswer}</p>
+                      <h4>Пояснення до відповіді: {item.explanation}</h4>
+                      <h4>Кількість балів: {item.point}</h4>
+                      {item.questionPic ?
+                        <img
+                          width='100'
+                          height='100'
+                          src={item.questionPic}
+                          alt=""
+                        /> : null
+                      }
+                      <button type="button" onClick={() => {
+                        setOpenModal(!openModal)
+                        setDataInput({...item, editing: true})
+                      }}>Редагувати
+                      </button>
+                      <button type="button" onClick={() => {
+                        removeEducationItem(index)
+                      }}>x
+                      </button>
                     </div>
-                    <p>Номер правильної відповіді: {item.correctAnswer}</p>
-                    <h4>Пояснення до відповіді: {item.explanation}</h4>
-                    <h4>Кількість балів: {item.point}</h4>
-                    {item.questionPic ?
-                      <img
-                        width='100'
-                        height='100'
-                        src={item.questionPic}
-                        alt=""
-                      /> : null
-                    }
                   </div>
-                  <button type="button" onClick={() => {
-                    setOpenModal(!openModal)
-                    setDataInput({...item, editing: true})
-                  }}>Редагувати</button>
-                  <button type="button" onClick={() => {removeEducationItem(index)}}>x</button>
-                </>
-              )
-            }
-          )}
-        </div> : null
+                )
+              }
+            )}
+          </div>
+        </>
+        : null
       }
       <form onSubmit={(event) => {
         event.preventDefault()
@@ -167,26 +181,29 @@ const Education = ({addEducationItem, updateEducationItem, removeEducationItem, 
           </div>
         </div>
         <div className="block-two-row mobile">
-          <div>
-            <h4>Варіанти відповідей</h4>
+          <div className="Variants">
+            <h5>Варіанти відповідей</h5>
             <div className="Variants">
               <input
-                className="input"
+                className="input form-input"
                 type="text"
                 value={variant}
+                label=""
                 onChange={inputChangeVariant}
                 placeholder="Вкажіть варіанти відповідей"
               />
               <button type="button" onClick={inputSubmitVariant}>+ Додати</button>
             </div>
-            <ul>
+            <ol style={{width: '50%', display: 'flex', flexDirection: 'column'}}>
               {dataInput?.answers?.map((task, index) => (
                 <li key={index}>
-                  {task}
-                  <button type="button" onClick={() => handleDelete(index)}>x</button>
+                  <span>{task}</span>
+                  <button className="delate" style={{marginLeft: '50px'}} type="button"
+                          onClick={() => handleDelete(index)}>x
+                  </button>
                 </li>
               ))}
-            </ul>
+            </ol>
           </div>
         </div>
         <div>
@@ -223,8 +240,8 @@ const Education = ({addEducationItem, updateEducationItem, removeEducationItem, 
             handleChange={(event) => handleChange('point', event.target.value)}
           />
         </div>
-        <h4>Картинка</h4>
-        <div>
+        <div style={{display: 'flex', flexDirection: 'column'}}>
+          <p>Додати картинку</p>
           <input
             id="fotoUploader"
             type="file"
@@ -232,9 +249,7 @@ const Education = ({addEducationItem, updateEducationItem, removeEducationItem, 
             onChange={(e) => handleImageChange(e)}
             accept="image/*, .heic, .heif"
           />
-          <label htmlFor="fotoUploader">
-            <p>Додати картинку</p>
-          </label>
+          <label htmlFor="fotoUploader"></label>
           {imagesPreviewUrls || dataInput.questionPic ?
             <img
               width='100'
@@ -246,8 +261,9 @@ const Education = ({addEducationItem, updateEducationItem, removeEducationItem, 
         </div>
         <button
           className="btn btn-continue"
+          style={{marginTop: '20px'}}
           type="submit"
-          onClick={()=> setVariantsArray([])}
+          onClick={() => setVariantsArray([])}
         >
           {dataInput?.editing ? 'Підтвердити редагування' : 'Додати питання'}
         </button>
