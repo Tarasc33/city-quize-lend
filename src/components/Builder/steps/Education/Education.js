@@ -126,9 +126,9 @@ const Education = ({
                           )
                         })}
                       </div>
-                      <p>Номер правильної відповіді: {item.correctAnswer}</p>
-                      <h4>Пояснення до відповіді: {item.explanation}</h4>
-                      <h4>Кількість балів: {item.point}</h4>
+                      <p className="cart-color-second">Номер правильної відповіді: {item.correctAnswer}</p>
+                      <h4 className="cart-color-second">Пояснення до відповіді: {item.explanation}</h4>
+                      <h4 className="cart-color-second">Кількість балів: {item.point}</h4>
                       {item.questionPic ?
                         <img
                           width='100'
