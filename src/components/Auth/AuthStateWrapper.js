@@ -25,8 +25,9 @@ const AuthStateWrapper = ({ children }) => {
           console.error(error)
         }
       } else {
-         //if (router.pathname.includes('builder'))
-           //return router.push('/')
+         if (router.pathname.includes('builder')) {
+           return router.push('/')
+         }
       }
     }
 

@@ -30,6 +30,12 @@ a {
 }
 /*Reset default style*/
 
+button:disabled,
+button[disabled]{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}
 
 .loader {
   display: flex;
@@ -229,14 +235,17 @@ a {
   background-color: #e3e8ec;
   z-index: 1;
 }
+
 .stepper-wrapper .stepper-head .stepper-step:last-child:after {
   display: none;
 }
+
 .stepper-wrapper .stepper-head .stepper-indicator {
   position: relative;
   display: block;
   z-index: 2;
 }
+
 .stepper-wrapper .stepper-head .stepper-indicator-info {
   position: relative;
   display: inline-flex;
@@ -253,10 +262,12 @@ a {
   color: #fff;
   z-index: 2;
 }
+
 .stepper-wrapper .stepper-head .stepper-indicator-info .stepper-tick {
   width: 14px;
   fill: #fff;
 }
+
 .stepper-wrapper .stepper-head .stepper-label {
   position: relative;
   display: block;
@@ -264,6 +275,7 @@ a {
   color: #cfd7de;
   z-index: 2;
 }
+
 .stepper-wrapper .stepper-body {
   flex: 1;
   min-height: 100px;
@@ -281,6 +293,7 @@ a {
   padding-top: 10px;
   justify-content: center;
 }
+
 .stepper-wrapper .stepper-footer-btn {
   color: rgba(0, 0, 0, 0.87);
   padding: 6px 16px;
@@ -296,10 +309,12 @@ a {
   border: none;
   outline: none;
 }
+
 .stepper-wrapper .stepper-footer-btn.primary {
   color: #fff;
   background-color: #1976d2;
 }
+
 .stepper-wrapper .stepper-footer-btn.success {
   color: #fff;
   background-color: #4caf50;
@@ -309,10 +324,12 @@ a {
   background-color: rgba(0, 0, 0, 0.12);
   cursor: not-allowed;
 }
+
 .stepper-wrapper form{
   margin-left: 40px;
   margin-right: 40px;
 }
+
 .btn-transparent{
   border-radius: 16px;
   width: 160px;
@@ -326,6 +343,7 @@ a {
   color: black;
   cursor: pointer;
 }
+
 .btn.stepper-footer-btn.btn-continue{
   background-color: yellow;
   border-radius: 16px;
@@ -570,7 +588,6 @@ a {
 
 /* form */
 
-
 .form-textarea, .form-input{
   width: 100%;
   padding: 10px;
@@ -615,7 +632,6 @@ a {
   }
 }
 
-
 .my-quest button, .builder-question button{
   border-radius: 10px;
   font-size: 15px;
@@ -640,4 +656,3 @@ a {
   justify-content: space-between;
   margin-top: 20px;
 }
-
