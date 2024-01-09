@@ -113,8 +113,8 @@ const Education = ({
           <div className="my-quest-container" style={{margin: '30px 30px 30px 30px'}}>
             {values?.questions?.map((item, index) => {
                 return (
-                  <div className="builder-question">
-                    <div key={index}>
+                  <div key={index} className="builder-question">
+                    <div>
                       <h4>Запитання: {item.question}</h4>
                       <div>
                         <h5>Варіанти відповідей</h5>

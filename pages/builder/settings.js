@@ -5,7 +5,8 @@ import {db} from "../../src/components/db/firebase"
 import {useContext} from "react"
 import {ThemeContext, QuizObjectContext} from "../_app"
 import {useRouter} from "next/router"
-import Link from "next/link";
+import Link from "next/link"
+import {translateRegionNameToUkrainian} from "../../src/helpers/functions"
 
 const Settings = () => {
   const tasksRef = ref(db)
@@ -64,14 +65,14 @@ const Settings = () => {
               {userQuize.map((item, index) => {
                 const time = new Date(item.time).toLocaleDateString("en-US")
                 return (
-                  <div className='my-quest'>
-                    <div key={index}>
+                  <div key={index} className='my-quest'>
+                    <div>
                       <div style={{display: "flex"}}>
                         <h3>{item.quizTitle}</h3>
                       </div>
                       <p>{item.quizSynopsis}</p>
                       <p className="cart-color-second">Дата: {time}</p>
-                      <p className="cart-color-second">Регіон: {item.regionName}</p>
+                      <p className="cart-color-second">Регіон: {translateRegionNameToUkrainian(item.regionName)}</p>
                     </div>
                     <div className="buttons-container">
                       <Link target="_blank" href={`/quest/${item.id}?data=${item.regionName}`}>Перегянути</Link>

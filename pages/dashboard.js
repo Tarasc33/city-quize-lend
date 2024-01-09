@@ -59,7 +59,7 @@ const Dashboard = () => {
       </nav>
       <div className="dashboard-content">
         <div className='region'>
-          <h4>{translateRegionNameToUkrainian(router.query.data)} область</h4>
+          <h4>{translateRegionNameToUkrainian(router.query.data)}</h4>
         </div>
         <div className="dashboard-map">
           {regions.map((item, index) => {
