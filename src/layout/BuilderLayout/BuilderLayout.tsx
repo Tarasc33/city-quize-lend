@@ -2,6 +2,7 @@ import {useContext} from "react"
 import {ThemeContext} from "../../../pages/_app"
 import {useRouter} from "next/router"
 import Link from "next/link"
+import {auth} from '../../components/db/firebase'
 
 const BuilderLayout = ({ children }) => {
   const contextValue = useContext(ThemeContext)
@@ -18,15 +19,19 @@ const BuilderLayout = ({ children }) => {
           </li>
           <li className="builder-li-exit">
             <button onClick={()=> {
-              contextValue.setAuthObject(prevState => ({
-                ...prevState,
-                isAuthenticated: false,
-                userName: '',
-                userId: '',
-                email: '',
-                token: ''
-              }))
-              router.push('/')
+              auth.signOut().then( () => {
+                contextValue.setAuthObject(prevState => ({
+                  ...prevState,
+                  isAuthenticated: false,
+                  userName: '',
+                  userId: '',
+                  email: '',
+                  token: ''
+                }))
+                router.push('/')
+              }, function(error) {
+                console.error('Sign Out Error', error)
+              })
             }}>Вихід</button>
           </li>
         </ul>
