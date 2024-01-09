@@ -463,6 +463,10 @@ button[disabled]{
   list-style: none;
 }
 
+.builder-li-exit button {
+  cursor: pointer;
+}
+
 .dashboard-li-main, .builder-ul li{
   list-style: none;
 }
@@ -481,8 +485,32 @@ button[disabled]{
   width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 0;
   margin: 0;
+}
+
+@media (max-width: 700px) {
+  .dashboard-ul, .builder-ul {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .dashboard-li-main, .builder-ul li, .builder-li-main, .builder-li-builder, .builder-li-exit {
+    height: 50px;
+  }
+}
+
+.region-map-container {
+  width: 500px;
+  height: 600px;
+  position: relative
+}
+
+@media (max-width: 700px) {
+  .region-map-container {
+    width: 300px;
+    height: 300px;
+  }
 }
 
 .quests-dashboard{
