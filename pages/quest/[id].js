@@ -43,8 +43,6 @@ const Id = () => {
     }
   }, [router.isReady, router.query.form])
 
-  console.log(itemQuest, 'itemQuest')
-
   const setQuizResult = (obj) => {
     if (obj) {
       const dbRef = ref(db, `regions/${itemQuest.regionName}/${itemQuest.id}`)
