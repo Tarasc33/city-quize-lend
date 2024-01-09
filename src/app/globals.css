@@ -598,7 +598,7 @@ a {
   flex-direction: row;
 }
 
-.my-quest, .builder-question{
+.my-quest, .builder-question {
   display: block;
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   padding: 20px;
@@ -608,6 +608,13 @@ a {
   min-width: 45%;
   width: 45%;
 }
+
+@media (max-width: 992px) {
+  .my-quest, .builder-question {
+    width: 100%;
+  }
+}
+
 
 .my-quest button, .builder-question button{
   border-radius: 10px;
