@@ -601,6 +601,10 @@ button[disabled]{
   margin-bottom: 10px;
 }
 
+.form-textarea {
+  height: 200px;
+}
+
 /* builder */
 
 .Variants button, .btn.btn-continue{
