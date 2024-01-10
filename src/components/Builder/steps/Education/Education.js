@@ -40,9 +40,7 @@ const Education = ({
   const contextRegion = useContext(RegionContext)
   const contextValue = useContext(ThemeContext)
 
-
   const handleChange = (fieldName, value) => {
-    // errors[fieldName] && validate(fieldName, dataInput)
     const updatedValues = {...dataInput, [fieldName]: value}
     setDataInput(updatedValues)
   }
@@ -118,13 +116,13 @@ const Education = ({
                       <h4>Запитання: {item.question}</h4>
                       <div>
                         <h5>Варіанти відповідей</h5>
-                        {item?.answers.map((item, index) => {
-                          return (
-                            <ol key={index}>
-                              <li>{item}</li>
-                            </ol>
-                          )
-                        })}
+                        <ol key={index}>
+                          {item?.answers.map((item, index) => {
+                            return (
+                                <li style={{margin: '10px'}}>{item}</li>
+                            )
+                          })}
+                        </ol>
                       </div>
                       <p className="cart-color-second">Номер правильної відповіді: {item.correctAnswer}</p>
                       <h4 className="cart-color-second">Пояснення до відповіді: {item.explanation}</h4>
@@ -254,7 +252,6 @@ const Education = ({
             onChange={(e) => handleImageChange(e)}
             accept="image/*, .heic, .heif"
           />
-          <label htmlFor="fotoUploader"></label>
           {imagesPreviewUrls || dataInput.questionPic ?
             <img
               width='100'
