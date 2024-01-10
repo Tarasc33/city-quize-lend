@@ -122,7 +122,7 @@ const Board = (props) => {
         id: contextQuizObject.quizObject?.id,
         regionName: contextQuizObject.quizObject?.regionName,
         time: serverTimestamp(),
-        status: false,
+        status: true,
         like: values.like,
         questionPic: values.questionPic || '',
         reports: values.reports,
