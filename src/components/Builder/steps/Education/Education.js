@@ -120,9 +120,9 @@ const Education = ({
                         <h5>Варіанти відповідей</h5>
                         {item?.answers.map((item, index) => {
                           return (
-                            <ul key={index}>
+                            <ol key={index}>
                               <li>{item}</li>
-                            </ul>
+                            </ol>
                           )
                         })}
                       </div>
@@ -270,7 +270,7 @@ const Education = ({
           type="submit"
           onClick={() => setVariantsArray([])}
         >
-          {dataInput?.editing ? 'Підтвердити редагування' : 'Додати питання'}
+          {dataInput?.editing ? 'Підтвердити редагування' : 'Зберегти питання'}
         </button>
       </form>
     </div>
