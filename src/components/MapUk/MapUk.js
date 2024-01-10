@@ -202,7 +202,7 @@ const MapUk = () => {
               className="mapBackground"
             ></path>
             <image
-              transform="translate(140 146)"
+              transform="translate(145 130)"
               xlinkHref='/geralds/hmelnitska.png'
               x={x}
               y={y}
