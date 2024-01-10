@@ -55,6 +55,7 @@ const Dashboard = () => {
         <ul className='dashboard-ul'>
           <li className='dashboard-li-main'><Link href="/">Україна</Link></li>
           <li className='dashboard-li-quest'><Link href={`/auth/login`}>+ Створити квест</Link></li>
+          <li className='dashboard-li-quest'><Link href={`/auth/login`}>Вхід</Link></li>
         </ul>
       </nav>
       <div className="dashboard-content">
