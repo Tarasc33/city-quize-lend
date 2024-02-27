@@ -10,7 +10,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com"/>
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"/>
         <meta property="og:image" content="https://www.mapsland.com/maps/europe/ukraine/large-detailed-tourist-map-of-ukraine.jpg" />
         <meta name="twitter:description" content="Майбутнє моєї країни" />
