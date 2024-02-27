@@ -403,6 +403,7 @@ button[disabled]{
 }
 
 .react-quiz-container {
+  width: 100%;
   z-index: 100!important;
   position: absolute!important;
   left: 50%;
@@ -499,7 +500,7 @@ button[disabled]{
     flex-direction: column;
     align-items: flex-start;
   }
-  .dashboard-li-main, .builder-ul li, .builder-li-main, .builder-li-builder, .builder-li-exit {
+  .dashboard-li-main, .builder-ul li, .builder-li-main, .builder-li-builder, .builder-li-exit, .dashboard-li-quest {
     height: 50px;
   }
 }
